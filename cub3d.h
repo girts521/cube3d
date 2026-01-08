@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include ".MLX42/include/MLX42/MLX42.h"
+# include "libft/libft.h"
 
 # define WIN_WIDTH 640
 # define WIN_HEIGHT 480

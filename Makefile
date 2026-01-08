@@ -9,6 +9,10 @@ OBJ = $(SRC:.c=.o)
 
 NAME = cube3d
 
+LIBFT_PATH = libft
+
+LIBFT = $(LIBFT_PATH)/libft.a
+
 MLX = .MLX42/build/libmlx42.a
 
 %.o: %.c
@@ -17,9 +21,13 @@ MLX = .MLX42/build/libmlx42.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJ)
+	@cp $(LIBFT) libft.a
 	@cp $(MLX) libmlx42.a
-	@$(CC) $(CFLAGS) $(OBJ) libmlx42.a $(MLX_FLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
 	@echo "/* Build $(NAME) */"
+
+$(LIBFT):
+	@make -C $(LIBFT_PATH) all --no-print-directory
 
 $(MLX):
 	@cmake MLX42 -B  MLX42/build > /dev/null 2>&1
@@ -27,12 +35,14 @@ $(MLX):
 
 clean:
 	@rm -rf MLX42/build
-	@rm -f $(OBJ) libmlx42.a
+	@rm -f $(OBJ) libft.a libmlx42.a
 	@echo "/* Removed o-files $(NAME) */"
+	@make -C $(LIBFT_PATH) clean --no-print-directory
 
 fclean: clean
 	@rm -f $(NAME)
 	@echo "/* Removed $(NAME) */"
+	@make -C $(LIBFT_PATH) fclean --no-print-directory
 
 re: fclean all
 
