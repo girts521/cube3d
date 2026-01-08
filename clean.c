@@ -10,6 +10,6 @@ int	clean(t_data *data, char *err_mess, int status)
 		mlx_terminate(data->mlx);
 	}
 	if (err_mess)
-		printf("Error\n%s", err_mess);
-	return (status);
+		printf("\nError\n%s", err_mess);
+	exit(status);
 }

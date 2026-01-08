@@ -3,11 +3,12 @@ CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 SRC = main.c \
-		clean.c
+		clean.c \
+		parser/parse_input.c
 
 OBJ = $(SRC:.c=.o)
 
-NAME = cube3d
+NAME = cub3d
 
 LIBFT_PATH = libft
 

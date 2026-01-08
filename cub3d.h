@@ -35,6 +35,7 @@ typedef struct s_data
 	t_map		map;
 }	t_data;
 
-int	clean(t_data *data, char *err_mess, int status);
+void	parse_input(t_data *data, char *argv[]);
+int		clean(t_data *data, char *err_mess, int status);
 
 #endif

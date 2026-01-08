@@ -1,0 +1,9 @@
+NO .test/image.png
+SO         .test/image.png
+
+   WE .test/image.png
+EA    .test/image.png
+
+F .test/image.png
+
+C .test/image.png
