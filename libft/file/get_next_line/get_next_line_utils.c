@@ -57,7 +57,7 @@ void	*ft_clbuff(t_buff **lst, t_buff **lst_2)
 	return (NULL);
 }
 
-size_t	ft_node_slen(t_buff *n_start)
+size_t	ft_node_slen(t_buff *n_start, char with_n)
 {
 	size_t	len;
 	size_t	i;
@@ -72,7 +72,11 @@ size_t	ft_node_slen(t_buff *n_start)
 			i++;
 		}
 		if (n_start->s[i] == '\n')
-			return (len + 1);
+		{
+			if (with_n)
+				return (len + 1);
+			return (len);
+		}
 		if (n_start->next == NULL)
 			return (len);
 		n_start = n_start->next;

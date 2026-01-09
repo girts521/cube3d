@@ -13,11 +13,12 @@
 #include "get_next_line.h"
 
 static int		ft_add_node(t_buff	**n_current, t_buff **n_start);
-static char		*ft_line(t_buff *n_start, t_buff *n_current, char *error_flag);
+static char		*ft_line(t_buff *n_start, t_buff *n_current, char *error_flag,
+					char with_n);
 static t_buff	*ft_remainder_node(char *new_l, ssize_t *error_flag);
 void			ft_check_remainder_node(t_buff *n_current, char **new_l);
 
-char	*get_next_line(int fd, char *error_flag)
+char	*get_next_line(int fd, char *error_flag, char with_n)
 {
 	char			*new_l;
 	static t_buff	*n_current = NULL;
@@ -42,7 +43,7 @@ char	*get_next_line(int fd, char *error_flag)
 	n_current = ft_remainder_node(new_l, &b);
 	if (!n_current && b == -1)
 		return (ft_clbuff_err(&n_start, &n_current, error_flag));
-	return (ft_line(n_start, n_current, error_flag));
+	return (ft_line(n_start, n_current, error_flag, with_n));
 }
 // b also used as error_flag in ft_remainder_node
 
@@ -63,7 +64,8 @@ static int	ft_add_node(t_buff	**n_current, t_buff **n_start)
 }
 // add back and move head with it, but keep the start pointer for traversal
 
-static char	*ft_line(t_buff *n_start, t_buff *n_current, char *error_flag)
+static char	*ft_line(t_buff *n_start, t_buff *n_current, char *error_flag,
+						char with_n)
 {
 	char	*res;
 	size_t	i;
@@ -72,8 +74,9 @@ static char	*ft_line(t_buff *n_start, t_buff *n_current, char *error_flag)
 	size_t	len;
 
 	n_copy = n_start;
-	len = ft_node_slen(n_start);
-	if (len == 0)
+	len = ft_node_slen(n_start, with_n);
+	if (len == 0 && (!n_start || (n_start->s[0] == '\0'
+				&& !ft_strchr(n_start->s, '\n'))))
 		return (ft_clbuff(&n_copy, &n_copy));
 	res = (char *)malloc(sizeof(char) * (len + 1));
 	if (!res)

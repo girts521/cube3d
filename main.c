@@ -66,7 +66,7 @@ int	main(int argc, char *argv[])
 		return (clean(NULL, "Wrong num of args\n", 1));
 	init_data(&data);
 
-	data.mlx = mlx_init(WIN_WIDTH, WIN_WIDTH, "cub3d", true);
+	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 
 	parse_input(&data, argv);
 	for (int i = 0; i < 6; i++)

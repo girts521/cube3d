@@ -28,7 +28,7 @@ typedef struct s_buff
 }					t_buff;
 
 char	*ft_strchr(const char *s, int c);
-size_t	ft_node_slen(t_buff *n_start);
+size_t	ft_node_slen(t_buff *n_start, char with_n);
 void	*ft_clbuff_err(t_buff **lst, t_buff**lst_2, char *error_flag);
 void	*ft_clbuff(t_buff **lst, t_buff **lst_2);
 

@@ -18,7 +18,7 @@ static int	add_element(char *line, int element, t_data *data)
 
 	while (*line == ' ')
 		line++;
-	line[ft_strlen(line) - 1] = '\0';  // \n raplce with '/0' segfault should not happen
+	//line[ft_strlen(line) - 1] = '\0';  // \n raplce with '/0' segfault should not happen
 	//printf("%s-- %d\n", line, element);
 	t = mlx_load_png(line);
 	if (!t)
@@ -63,8 +63,11 @@ static int	process_line(char *line, t_data *data, int fd)
 	static int	fd_len = 0; // keep track of len till map found
 
 	(void) fd;
-	if (line[0] == '\n')
+	if (line[0] == '\0') // get_next_line retuns \0 with_n=0
+	{
+		fd_len++;
 		return(0);
+	}
 	// if (detect_map(line))
 	// {
 	// 	check_elements_presence(data);
@@ -86,7 +89,7 @@ void	parse_input(t_data *data, char *argv[])
 		clean(NULL, "Could not open file\n", 1);
 	while (1)
 	{
-		line = get_next_line(fd, &malloc_failure);
+		line = get_next_line(fd, &malloc_failure, 0);
 		if (malloc_failure)
 		{
 			close(fd);
