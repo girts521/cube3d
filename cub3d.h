@@ -36,6 +36,6 @@ typedef struct s_data
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);
-int		clean(t_data *data, char *err_mess, int status);
+int	clean(t_data *data, char *err_mess, int status, int fd);
 
 #endif

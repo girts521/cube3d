@@ -4,7 +4,9 @@ MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 SRC = main.c \
 		clean.c \
-		parser/parse_input.c
+		parser/parse_input.c \
+		parser/parse_map.c \
+		parser/parse_utils.c
 
 OBJ = $(SRC:.c=.o)
 

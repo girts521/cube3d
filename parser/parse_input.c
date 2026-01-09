@@ -1,16 +1,7 @@
 #include "../cub3d.h"
 
-// static void	check_elements_presence(t_data *data)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (++i < 6)
-// 	{
-// 		if (data->img[i] == NULL)
-// 			clean(data, "Element missing\n", 1);
-// 	}
-// }
+void	parse_map(char *line, t_data *data, int fd, int *fd_len);
+int		detect_map(char *line);
 
 static int	add_element(char *line, int element, t_data *data)
 {
@@ -24,10 +15,7 @@ static int	add_element(char *line, int element, t_data *data)
 	if (!t)
 		return (1);
 	if (data->img[element] != NULL)
-	{
-		printf("\nentered, %d\n", element);
 		return (1);
-	}
 	// if (element == F || C)   // create one-colored image or just add texture liek for bonus?
 	// 	data->img[element] = create_image();
 	// else
@@ -58,22 +46,14 @@ static int	parse_element(char *line, t_data *data)
 	return (1);
 }
 
-static int	process_line(char *line, t_data *data, int fd)
+static int	process_line(char *line, t_data *data, int *fd_len)
 {
-	static int	fd_len = 0; // keep track of len till map found
-
-	(void) fd;
 	if (line[0] == '\0') // get_next_line retuns \0 with_n=0
 	{
-		fd_len++;
+		(*fd_len)++;
 		return(0);
 	}
-	// if (detect_map(line))
-	// {
-	// 	check_elements_presence(data);
-	// 	return (parse_map(line, data, fd, fd_len));
-	// }
-	fd_len += ft_strlen(line);
+	*fd_len += ft_strlen(line);
 	return (parse_element(line, data));
 }
 
@@ -82,29 +62,36 @@ void	parse_input(t_data *data, char *argv[])
 	int		fd;
 	char	*line;
 	char	malloc_failure; // handle malloc inside get_next_line
+	int		fd_len;
 
 	malloc_failure = 0;
+	fd_len = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		clean(NULL, "Could not open file\n", 1);
+		clean(NULL, "Could not open file\n", 1, -1);
 	while (1)
 	{
 		line = get_next_line(fd, &malloc_failure, 0);
 		if (malloc_failure)
-		{
-			close(fd);
-			clean(data, "malloc failure inside get_next_line\n", 1);
-		}
+			clean(data, "failure inside get_next_line\n", 1, fd);
 		if (!line)
 			break;
-		if (process_line(line, data, fd))
+		if (detect_map(line))
+		{
+			parse_map(line, data, fd, &fd_len);
+			break ;
+		}
+		if (process_line(line, data, &fd_len))
 		{
 			printf("Culprit >> '%s'", line);
 			free(line);
-			close(fd);
-			clean(data, "Wrong input\n", 1);
+			clean(data, "Wrong input\n", 1, fd);
 		}
 		free(line);
 	}
+	if (data->map.height == 0)
+		clean(data, "map not found\n", 1, fd);
 	close(fd);
+
+	// fill_map()
 }

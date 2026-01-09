@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	clean(t_data *data, char *err_mess, int status)
+int	clean(t_data *data, char *err_mess, int status, int fd)
 {
 	if (data)
 	{
@@ -11,5 +11,7 @@ int	clean(t_data *data, char *err_mess, int status)
 	}
 	if (err_mess)
 		printf("\nError\n%s", err_mess);
+	if (fd != -1)
+		close(fd);
 	exit(status);
 }

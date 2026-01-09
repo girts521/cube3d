@@ -29,7 +29,7 @@ static void	cross_handler(void *ptr)
 	// mlx_terminate(data->mlx);
 
 	printf("exit (cross) triggered\n");
-	clean(data, NULL, 0);
+	clean(data, NULL, 0, -1);
 }
 
 static void	key_handler(mlx_key_data_t keydata, void *param)
@@ -53,7 +53,7 @@ static void	key_handler(mlx_key_data_t keydata, void *param)
 			printf("Escape triggered\n");
 			// mlx_close_window(data->mlx);
 			// mlx_terminate(data->mlx);
-			clean(data, NULL, 0);
+			clean(data, NULL, 0, -1);
 		}
 	}
 }
@@ -63,14 +63,14 @@ int	main(int argc, char *argv[])
 	t_data	data;
 	(void) argv;
 	if (argc != 2)
-		return (clean(NULL, "Wrong num of args\n", 1));
+		return (clean(NULL, "Wrong num of args\n", 1, -1));
 	init_data(&data);
 
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 
 	parse_input(&data, argv);
-	for (int i = 0; i < 6; i++)
-		printf("%p\n", data.img[i]);
+	// for (int i = 0; i < 6; i++)
+	// 	printf("%p\n", data.img[i]);
 	mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
 	mlx_key_hook(data.mlx, key_handler, &data);
