@@ -7,7 +7,6 @@ static void	add_row(char **row, int fd, int width)
 	int i;
 
 	(void)byte;
-	byte = read(fd, &buf, 1);
 	i = -1;
 	while (++i < width)
 	{
@@ -20,7 +19,9 @@ static void	add_row(char **row, int fd, int width)
 		}
 		(*row)[i] = buf;
 	}
+	byte = read(fd, &buf, 1);
 }
+
 
 static void	init_map(t_data *data, int fd)
 {
@@ -84,7 +85,7 @@ void	fill_map(t_data *data, char *argv[], int fd_len)
 	char	buf[fd_len];
 
 	fd = open(argv[1], O_RDONLY);
-	if (read(fd, buf, fd_len - 1) == -1)
+	if (read(fd, buf, fd_len) == -1)
 		clean(data, "read failure\n", 1, fd);
 	init_map(data, fd);
 	set_player(data);
