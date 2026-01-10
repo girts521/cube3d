@@ -69,18 +69,19 @@ static void	map_dimensions(char *line, t_data *data, int fd)
 	}
 }
 
-void	parse_map(char *line, t_data *data, int fd, int *fd_len)
+void	parse_map(char *line, t_data *data, int fd)
 {
-	(void) fd_len;
-
 	if (check_elements_presence(data))
+	{
+		free(line);
 		clean(data, "Invalid map symbol\n", 1, fd);
+	}
 	map_dimensions(line, data, fd);
 
 
 	//printf("\nwidth: %d, height: %d\n", data->map.width, data->map.height);
 
-	
+
 	// restart with read(fd_len) to parse map properly
 
 	free(line);

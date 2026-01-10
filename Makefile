@@ -6,7 +6,8 @@ SRC = main.c \
 		clean.c \
 		parser/parse_input.c \
 		parser/parse_map.c \
-		parser/parse_utils.c
+		parser/parse_utils.c \
+		parser/fill_map.c
 
 OBJ = $(SRC:.c=.o)
 

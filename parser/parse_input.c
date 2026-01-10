@@ -1,7 +1,8 @@
 #include "../cub3d.h"
 
-void	parse_map(char *line, t_data *data, int fd, int *fd_len);
+void	parse_map(char *line, t_data *data, int fd);
 int		detect_map(char *line);
+void	fill_map(t_data *data, char *argv[], int fd_len);
 
 static int	add_element(char *line, int element, t_data *data)
 {
@@ -46,52 +47,60 @@ static int	parse_element(char *line, t_data *data)
 	return (1);
 }
 
-static int	process_line(char *line, t_data *data, int *fd_len)
+static int	process_element(char *line, t_data *data, int *fd_len)
 {
 	if (line[0] == '\0') // get_next_line retuns \0 with_n=0
 	{
 		(*fd_len)++;
 		return(0);
 	}
-	*fd_len += ft_strlen(line);
+	*fd_len += (ft_strlen(line) + 1);
 	return (parse_element(line, data));
+}
+
+
+
+static int	handle_line(t_data *data, int fd, int *fd_len)
+{
+	char	*line;
+	char	malloc_failure; // handle malloc inside get_next_line
+
+	line = get_next_line(fd, &malloc_failure, 0);
+	if (malloc_failure)
+		clean(data, "failure inside get_next_line\n", 1, fd);
+	if (!line)
+		return (1);
+	if (detect_map(line))
+	{
+		parse_map(line, data, fd);
+		return (1);
+	}
+	if (process_element(line, data, fd_len))
+	{
+		printf("Culprit >> '%s'", line);
+		free(line);
+		clean(data, "Wrong input\n", 1, fd);
+	}
+	free(line);
+	return (0);
 }
 
 void	parse_input(t_data *data, char *argv[])
 {
 	int		fd;
-	char	*line;
-	char	malloc_failure; // handle malloc inside get_next_line
 	int		fd_len;
 
-	malloc_failure = 0;
 	fd_len = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		clean(NULL, "Could not open file\n", 1, -1);
 	while (1)
 	{
-		line = get_next_line(fd, &malloc_failure, 0);
-		if (malloc_failure)
-			clean(data, "failure inside get_next_line\n", 1, fd);
-		if (!line)
-			break;
-		if (detect_map(line))
-		{
-			parse_map(line, data, fd, &fd_len);
+		if (handle_line(data, fd, &fd_len))
 			break ;
-		}
-		if (process_line(line, data, &fd_len))
-		{
-			printf("Culprit >> '%s'", line);
-			free(line);
-			clean(data, "Wrong input\n", 1, fd);
-		}
-		free(line);
 	}
 	if (data->map.height == 0)
 		clean(data, "map not found\n", 1, fd);
 	close(fd);
-
-	// fill_map()
+	fill_map(data, argv, fd_len);
 }

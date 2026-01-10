@@ -25,7 +25,6 @@ typedef struct s_map
 	char	**grid;
 	int		height;
 	int		width;
-	int		player_pos[3];
 }	t_map;
 
 typedef struct s_data
@@ -33,9 +32,10 @@ typedef struct s_data
 	mlx_t		*mlx;
 	mlx_image_t	*img[6];
 	t_map		map;
+	int			player[3];
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);
-int	clean(t_data *data, char *err_mess, int status, int fd);
+int		clean(t_data *data, char *err_mess, int status, int fd);
 
 #endif
