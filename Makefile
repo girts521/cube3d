@@ -52,6 +52,6 @@ re: fclean all
 
 test: $(NAME)
 	@echo ""
-	@./$(NAME)
+	@./$(NAME) .test/working.cub
 
-.PHONY: all re fclean clean bonus
+.PHONY: all re fclean clean test

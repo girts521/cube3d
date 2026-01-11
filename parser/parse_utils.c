@@ -37,6 +37,35 @@ int check_trailing_lines(int fd, t_data *data)
 	return (0);
 }
 
+static void	check_zero(t_data *data, int x, int y)
+{
+	if (y == 0 || y == data->map.height - 1
+		|| x == 0 || x == data->map.width - 1)
+		clean(data, "0 touches border\n", 1, -1);
+	if (data->map.grid[y - 1][x] == ' '
+		|| data->map.grid[y + 1][x] == ' '
+		|| data->map.grid[y][x - 1] == ' '
+		|| data->map.grid[y][x + 1] == ' ')
+		clean(data, "0 touches empty space\n", 1, -1);
+}
+
+void	validate_map(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < data->map.height)
+	{
+		x = -1;
+		while (++x < data->map.width)
+		{
+			if (data->map.grid[y][x] == '0')
+				check_zero(data, x, y);
+		}
+	}
+}
+
 // int check_trailing_lines(int fd)
 // {
 // 	char	buf;

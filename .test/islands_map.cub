@@ -1,0 +1,22 @@
+NO .test/image.png
+SO         .test/image.png
+
+   WE .test/image.png
+EA    .test/image.png
+
+F .test/image.png
+
+C .test/image.png
+
+
+   111111
+   100001
+   100001
+   111111     111111
+              100001
+              100001
+              111111
+111111  111111
+100S01  100001
+111111  111111      11
+                  111111
