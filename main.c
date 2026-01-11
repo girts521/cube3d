@@ -12,6 +12,7 @@ static void	init_data(t_data *data)
 	data->player[2] = -1;
 	data->map.height = 0;
 	data->map.width = 0;
+	data->map.grid = NULL;
 	i = -1;
 	while (++i < 6)
 		data->img[i] = NULL;
@@ -24,10 +25,6 @@ static void	cross_handler(void *ptr)
 	t_data	*data;
 
 	data = (t_data *) ptr;
-
-	// mlx_close_window(data->mlx);
-	// mlx_terminate(data->mlx);
-
 	printf("exit (cross) triggered\n");
 	clean(data, NULL, 0, -1);
 }
@@ -51,8 +48,6 @@ static void	key_handler(mlx_key_data_t keydata, void *param)
 		if (keydata.key == 256)
 		{
 			printf("Escape triggered\n");
-			// mlx_close_window(data->mlx);
-			// mlx_terminate(data->mlx);
 			clean(data, NULL, 0, -1);
 		}
 	}
@@ -86,11 +81,11 @@ int	main(int argc, char *argv[])
 	}
 	printf("\n\nplayer: y=%d , x=%d , direction=%d\n", data.player[0], data.player[1], data.player[2]);
 	//
-	
+
 
 	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_close_hook(data.mlx, cross_handler, &data);
 	mlx_loop(data.mlx);
 
-	//mlx_terminate(data.mlx);
+	clean(&data, NULL, 0, -1);
 }
