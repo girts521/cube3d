@@ -5,6 +5,13 @@ int		detect_map(char *line);
 void	fill_map(t_data *data, char *argv[], int fd_len);
 void	validate_map(t_data *data);
 
+
+static int free_t(mlx_texture_t *t)
+{
+	mlx_delete_texture(t);
+	return (1);
+}
+
 static int	add_element(char *line, int element, t_data *data)
 {
 	mlx_texture_t	*t;
@@ -17,17 +24,20 @@ static int	add_element(char *line, int element, t_data *data)
 	if (!t)
 		return (1);
 	if (data->img[element] != NULL)
-		return (1);
+		free_t(t);
 	// if (element == F || C)   // create one-colored image or just add texture liek for bonus?
 	// 	data->img[element] = create_image();
 	// else
 	data->img[element] = mlx_texture_to_image(data->mlx, t);
 	if (!data->img[element])
-		return (1);
+		free_t(t);
 	// if (resize_assets(data)) ??
 	// 	return (1);
+	mlx_delete_texture(t);
 	return (0);
 }
+// texture needs to be freed too!
+
 
 static int	parse_element(char *line, t_data *data)
 {
@@ -67,6 +77,7 @@ static int	handle_line(t_data *data, int fd, int *fd_len)
 	char	malloc_failure; // handle malloc inside get_next_line
 
 	line = get_next_line(fd, &malloc_failure, 0);
+	malloc_failure = 0;
 	if (malloc_failure)
 		clean(data, "failure inside get_next_line\n", 1, fd);
 	if (!line)
