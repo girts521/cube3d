@@ -3,6 +3,7 @@
 void	parse_map(char *line, t_data *data, int fd);
 int		detect_map(char *line);
 void	fill_map(t_data *data, char *argv[], int fd_len);
+void	validate_map(t_data *data);
 
 static int	add_element(char *line, int element, t_data *data)
 {
@@ -103,4 +104,5 @@ void	parse_input(t_data *data, char *argv[])
 		clean(data, "map not found\n", 1, fd);
 	close(fd);
 	fill_map(data, argv, fd_len);
+	validate_map(data);
 }

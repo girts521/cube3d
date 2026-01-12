@@ -74,6 +74,7 @@ int	main(int argc, char *argv[])
 	mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
 	// print map
+	printf("height: %d, width: %d\n", data.map.height, data.map.width);
 	for (int i = 0; i < data.map.height; i++)
 	{
 		if (i < 10)
@@ -86,7 +87,7 @@ int	main(int argc, char *argv[])
 	}
 	printf("\n\nplayer: y=%d , x=%d , direction=%d\n", data.player[0], data.player[1], data.player[2]);
 	//
-	
+
 
 	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_close_hook(data.mlx, cross_handler, &data);
