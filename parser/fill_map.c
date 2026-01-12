@@ -1,94 +1,89 @@
 #include "../cub3d.h"
 
-static void	add_row(char **row, int fd, int width)
-{
-	char	buf;
-	ssize_t	byte;
-	int i;
+static void add_row(char **row, int fd, int width) {
+  char buf;
+  ssize_t byte;
+  int i;
 
-	(void)byte;
-	i = -1;
-	while (++i < width)
-	{
-		byte = read(fd, &buf, 1);
-		if (buf == '\n')
-		{
-			while (i < width)
-				(*row)[i++] = ' ';
-			return ;
-		}
-		(*row)[i] = buf;
-	}
-	byte = read(fd, &buf, 1);
+  (void)byte;
+  i = -1;
+  while (++i < width) {
+    byte = read(fd, &buf, 1);
+    if (buf == '\n') {
+      while (i < width)
+        (*row)[i++] = ' ';
+      return;
+    }
+    (*row)[i] = buf;
+  }
+  byte = read(fd, &buf, 1);
 }
 
+static void init_map(t_data *data, int fd) {
+  int i;
 
-static void	init_map(t_data *data, int fd)
-{
-	int	i;
-
-	data->map.grid = (char **)malloc(sizeof(char *) * data->map.height);
-	if (!data->map.grid)
-		clean(data, "malloc failure\n", 1, fd);
-	i = -1;
-	while (++i < data->map.height)
-		data->map.grid[i] = NULL;
-	i = -1;
-	while (++i < data->map.height)
-	{
-		data->map.grid[i] = (char *)malloc(sizeof(char) * data->map.width);
-		if (!data->map.grid[i])
-			clean(data, "malloc failure\n", 1, fd);
-		add_row(&data->map.grid[i], fd, data->map.width);
-	}
+  data->map.grid = (char **)malloc(sizeof(char *) * data->map.height);
+  if (!data->map.grid)
+    clean(data, "malloc failure\n", 1, fd);
+  i = -1;
+  while (++i < data->map.height)
+    data->map.grid[i] = NULL;
+  i = -1;
+  while (++i < data->map.height) {
+    data->map.grid[i] = (char *)malloc(sizeof(char) * data->map.width);
+    if (!data->map.grid[i])
+      clean(data, "malloc failure\n", 1, fd);
+    add_row(&data->map.grid[i], fd, data->map.width);
+  }
 }
 
-static void	fill_player(t_data *data, int i, int i2, char direction)
-{
-	data->player[0] = i;
-	data->player[1] = i2;
-	if (direction == 'N')
-		data->player[2] = 0;
-	else if (direction == 'E')
-		data->player[2] = 1;
-	else if (direction == 'S')
-		data->player[2] = 2;
-	else
-		data->player[2] = 3;
-	data->map.grid[i][i2] = '0';
+static void fill_player(t_data *data, int i, int i2, char direction) {
+  data->player[0] = i;
+  data->player[1] = i2;
+  if (direction == 'N') {
+    data->player[2] = 0;
+    data->dir_x = 0;
+    data->dir_y = -1;
+  } else if (direction == 'E') {
+    data->player[2] = 1;
+    data->dir_x = 1;
+    data->dir_y = 0;
+  } else if (direction == 'S') {
+    data->player[2] = 2;
+    data->dir_x = 0;
+    data->dir_y = 1;
+  } else {
+    data->player[2] = 3;
+    data->dir_x = -1;
+    data->dir_y = 0;
+  }
+  data->map.grid[i][i2] = '0';
 }
 
-static void	set_player(t_data *data)
-{
-	int	i;
-	int	i2;
+static void set_player(t_data *data) {
+  int i;
+  int i2;
 
-	i = -1;
-	while (++i < data->map.height)
-	{
-		i2 = -1;
-		while (++i2 < data->map.width)
-		{
-			if (ft_ischars(data->map.grid[i][i2], "NSEW"))
-			{
-				if (data->player[0] != -1)
-					clean(data, "duplicate player\n", 1, -1);
-				fill_player(data, i, i2, data->map.grid[i][i2]);
-			}
-		}
-	}
+  i = -1;
+  while (++i < data->map.height) {
+    i2 = -1;
+    while (++i2 < data->map.width) {
+      if (ft_ischars(data->map.grid[i][i2], "NSEW")) {
+        if (data->player[0] != -1)
+          clean(data, "duplicate player\n", 1, -1);
+        fill_player(data, i, i2, data->map.grid[i][i2]);
+      }
+    }
+  }
 }
 
-void	fill_map(t_data *data, char *argv[], int fd_len)
-{
-	int		fd;
-	char	buf[fd_len];
+void fill_map(t_data *data, char *argv[], int fd_len) {
+  int fd;
+  char buf[fd_len];
 
-	fd = open(argv[1], O_RDONLY);
-	if (read(fd, buf, fd_len) == -1)
-		clean(data, "read failure\n", 1, fd);
-	init_map(data, fd);
-	set_player(data);
+  fd = open(argv[1], O_RDONLY);
+  if (read(fd, buf, fd_len) == -1)
+    clean(data, "read failure\n", 1, fd);
+  init_map(data, fd);
+  set_player(data);
 }
-
-
