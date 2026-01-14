@@ -29,8 +29,10 @@ static int	add_element(char *line, int element, t_data *data)
 	// 	data->img[element] = create_image();
 	// else
 	data->img[element] = mlx_texture_to_image(data->mlx, t);
+  printf("huh?2\n");
 	if (!data->img[element])
 		free_t(t);
+  printf("huh?3\n");
 	// if (resize_assets(data)) ??
 	// 	return (1);
 	mlx_delete_texture(t);

@@ -6,11 +6,38 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define WIN_WIDTH 640
 #define WIN_HEIGHT 480
 
 typedef enum texture { NO, SO, WE, EA, F, C } t_texture;
+
+typedef struct s_raycasting
+{
+  double  pos_x;
+  double  pos_y;
+  double  plane_x;
+  double  plane_y;
+  double  time;
+  double  oldTime;
+  double  cameraX;
+  double  rayDirX;
+  double  rayDirY;
+  int     mapX;
+  int     mapY;
+  double  sideDistX;
+  double  sideDistY;
+  double  deltaDistX;
+  double  deltaDistY;
+  int     stepX;
+  int     stepY;
+  int     side;
+  int     drawStart;
+  int     drawEnd;
+  int     color;
+  char    wall_type;
+}              t_raycasting;
 
 typedef struct s_map {
   char **grid;
@@ -22,13 +49,17 @@ typedef struct s_data {
   mlx_t *mlx;
   mlx_image_t *img[6];
   t_map map;
-  int player[3];
+  double player[3];
   double dir_x;
   double dir_y;
+  double plane_x;
+  double plane_y;
 
 } t_data;
 
 void parse_input(t_data *data, char *argv[]);
 int clean(t_data *data, char *err_mess, int status, int fd);
+void  fill_background(t_data *data);
+void raycasting(t_data *data);
 
 #endif
