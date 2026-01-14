@@ -109,7 +109,7 @@ int	main(int argc, char *argv[])
 
 	// for (int i = 0; i < 6; i++)
 	// 	printf("%p\n", data.img[i]);
-	// mlx_image_to_window(data.mlx, data.img[0], 0, 0);
+	mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
 	// print map
 	printf("height: %d, width: %d\n", data.map.height, data.map.width);
@@ -123,8 +123,7 @@ int	main(int argc, char *argv[])
 			printf("%c", data.map.grid[i][i2]);
 		printf("|");
 	}
-	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[0], data.player[1], data.player[2]);
-
+	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[1], data.player[0], data.player[2]);
 
   mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_key_hook(data.mlx, key_handler, &data);

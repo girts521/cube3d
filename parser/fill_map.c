@@ -38,8 +38,8 @@ static void init_map(t_data *data, int fd) {
 }
 
 static void fill_player(t_data *data, int i, int i2, char direction) {
-  data->player[0] = i;
-  data->player[1] = i2;
+  data->player[0] = i2;
+  data->player[1] = i;
   if (direction == 'N') {
     data->player[2] = 0;
     data->dir_x = 0;

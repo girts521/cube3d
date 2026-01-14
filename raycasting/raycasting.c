@@ -31,18 +31,18 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
 {
     int       y;
     uint32_t  color;
-    int       wall_val;
+    char       wall_val;
 
     if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
         return;
     else
-        wall_val = atoi(&data->map.grid[ray->mapY][ray->mapX]); 
+        wall_val = data->map.grid[ray->mapY][ray->mapX]; 
     y = ray->drawStart;
-    if (wall_val == 1) 
+    if (wall_val == '1') 
       color = 0xFF0000FF;
-    else if (wall_val == 2)
+    else if (wall_val == '2')
       color = 0x00FF00FF;
-    else if (wall_val == 3)
+    else if (wall_val == '3')
       color = 0x0000FFFF;
     else
       color = 0xFFFF00FF;
@@ -128,10 +128,11 @@ void find_wall(t_raycasting *ray, t_data *data)
     }
     if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
     {
+        printf("mapX: %d\n mapY: %d\n", ray->mapX, ray->mapY);
         hit = 1; 
         break; 
     }
-    if (atoi(&data->map.grid[ray->mapY][ray->mapX]) > 0)
+    if (data->map.grid[ray->mapY][ray->mapX] > '0')
       hit = 1;
   }
 }
