@@ -4,6 +4,7 @@ void	parse_map(char *line, t_data *data, int fd);
 int		detect_map(char *line);
 void	fill_map(t_data *data, char *argv[], int fd_len);
 void	validate_map(t_data *data);
+int		add_rgb(const char *str, int *rgb, t_data *data);
 
 
 static int free_t(mlx_texture_t *t)
@@ -18,21 +19,14 @@ static int	add_element(char *line, int element, t_data *data)
 
 	while (*line == ' ')
 		line++;
-	//line[ft_strlen(line) - 1] = '\0';  // \n raplce with '/0' segfault should not happen
-	//printf("%s-- %d\n", line, element);
 	t = mlx_load_png(line);
 	if (!t)
 		return (1);
 	if (data->img[element] != NULL)
 		free_t(t);
-	// if (element == F || C)   // create one-colored image or just add texture liek for bonus?
-	// 	data->img[element] = create_image();
-	// else
 	data->img[element] = mlx_texture_to_image(data->mlx, t);
 	if (!data->img[element])
 		free_t(t);
-	// if (resize_assets(data)) ??
-	// 	return (1);
 	mlx_delete_texture(t);
 	return (0);
 }
@@ -52,9 +46,9 @@ static int	parse_element(char *line, t_data *data)
 	if (!ft_strncmp(line, "EA", 2))
 		return (add_element(line + 2, EA, data));
 	if (!ft_strncmp(line, "F", 1))
-		return (add_element(line + 1, F, data));
+		return (add_rgb(line + 1, data->floor, data));
 	if (!ft_strncmp(line, "C", 1))
-		return (add_element(line + 1, C, data));
+		return (add_rgb(line + 1, data->ceiling, data));
 	return (1);
 }
 

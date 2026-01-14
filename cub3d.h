@@ -11,7 +11,9 @@
 #define WIN_WIDTH 640
 #define WIN_HEIGHT 480
 
-typedef enum texture { NO, SO, WE, EA, F, C } t_texture;
+#define N_TEXTURES 4
+
+typedef enum texture {NO, SO, WE, EA} t_texture;
 
 typedef struct s_raycasting
 {
@@ -47,7 +49,9 @@ typedef struct s_map {
 
 typedef struct s_data {
   mlx_t *mlx;
-  mlx_image_t *img[6];
+  mlx_image_t *img[N_TEXTURES];
+  int floor[3];
+  int ceiling[3];
   t_map map;
   double player[3];
   double dir_x;
