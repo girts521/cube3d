@@ -10,7 +10,8 @@ SRC = main.c \
 		parser/fill_map.c	\
 		parser/add_rgb.c	\
 		raycasting/raycasting.c \
-		raycasting/fill_background.c
+		raycasting/fill_background.c \
+		raycasting/utils.c
 
 OBJ = $(SRC:.c=.o)
 
