@@ -8,15 +8,15 @@ static void	init_data(t_data *data)
 	int	i;
 
 	data->mlx = NULL;
-	data->player[0] = 22;
-	data->player[1] = 12;
+	data->player[0] = -1;
+	data->player[1] = -1;
 	data->player[2] = -1;
 	data->map.height = 0;
 	data->map.width = 0;
 	data->map.grid = NULL;
   //FIX: This has to be done by parser:
-  data->dir_x = 0;
-  data->dir_y = -1;
+  // data->dir_x = 0;
+  // data->dir_y = -1;
 	i = -1;
 	while (++i < 6)
 		data->img[i] = NULL;
@@ -101,10 +101,10 @@ int	main(int argc, char *argv[])
 	init_data(&data);
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
   if (!data.mlx) return (1);
-  data.img[0] = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
-  mlx_image_to_window(data.mlx, data.img[0], 0, 0);
+  // data.img[0] = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
+  // mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
-	// parse_input(&data, argv);
+	parse_input(&data, argv);
   game_loop(&data);
 
 	// for (int i = 0; i < 6; i++)
@@ -112,19 +112,19 @@ int	main(int argc, char *argv[])
 	// mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
 	// print map
-	// printf("height: %d, width: %d\n", data.map.height, data.map.width);
-	// for (int i = 0; i < data.map.height; i++)
-	// {
-	// 	if (i < 10)
-	// 		printf("\n|%d| :", i);
-	// 	else
-	// 		printf("\n|%d|:", i);
-	// 	for (int i2 = 0; i2 < data.map.width; i2++)
-	// 		printf("%c", data.map.grid[i][i2]);
-	// 	printf("|");
-	// }
-	// printf("\n\nplayer: y=%d , x=%d , direction=%d\n", data.player[0], data.player[1], data.player[2]);
-	//
+	printf("height: %d, width: %d\n", data.map.height, data.map.width);
+	for (int i = 0; i < data.map.height; i++)
+	{
+		if (i < 10)
+			printf("\n|%d| :", i);
+		else
+			printf("\n|%d|:", i);
+		for (int i2 = 0; i2 < data.map.width; i2++)
+			printf("%c", data.map.grid[i][i2]);
+		printf("|");
+	}
+	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[0], data.player[1], data.player[2]);
+
 
   mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_key_hook(data.mlx, key_handler, &data);

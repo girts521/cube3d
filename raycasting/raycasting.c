@@ -1,16 +1,6 @@
 #include "../cub3d.h"
 #include <math.h>
 
-// data->map->width/height
-// WIN_HEIGHT/WIN_WIDTH
-
-// #define WIN_WIDTH 1024
-// #define WIN_HEIGHT 768
-// #define ROT_SPEED 0.05
-// #define MOVE_SPEED 0.05
-//
-//
-
 int worldMap[24][24] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -43,11 +33,10 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
     uint32_t  color;
     int       wall_val;
 
- //FIX: use the proper data map. and the proper boundries instead of 24
-    if (ray->mapX < 0 || ray->mapX >= 24 || ray->mapY < 0 || ray->mapY >= 24)
+    if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
         return;
     else
-        wall_val = worldMap[ray->mapY][ray->mapX]; 
+        wall_val = atoi(&data->map.grid[ray->mapY][ray->mapX]); 
     y = ray->drawStart;
     if (wall_val == 1) 
       color = 0xFF0000FF;
@@ -137,14 +126,12 @@ void find_wall(t_raycasting *ray, t_data *data)
       ray->mapY += ray->stepY;
       ray->side = 1;
     }
-    if (ray->mapX < 0 || ray->mapX >= 24 || ray->mapY < 0 || ray->mapY >= 24)
+    if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
     {
-        printf("I am here\n");
         hit = 1; 
         break; 
     }
-// FIX: Use the data->wall or something, thats coming from parsing
-    if (worldMap[ray->mapY][ray->mapX] > 0)
+    if (atoi(&data->map.grid[ray->mapY][ray->mapX]) > 0)
       hit = 1;
   }
 }
