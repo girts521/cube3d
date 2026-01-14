@@ -18,7 +18,7 @@ static void	init_data(t_data *data)
   // data->dir_x = 0;
   // data->dir_y = -1;
 	i = -1;
-	while (++i < 6)
+	while (++i < N_TEXTURES)
 		data->img[i] = NULL;
 }
 
@@ -105,7 +105,7 @@ int	main(int argc, char *argv[])
   // mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
 	parse_input(&data, argv);
-  game_loop(&data);
+	game_loop(&data);
 
 	// for (int i = 0; i < 6; i++)
 	// 	printf("%p\n", data.img[i]);
@@ -124,8 +124,11 @@ int	main(int argc, char *argv[])
 		printf("|");
 	}
 	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[1], data.player[0], data.player[2]);
+	printf("\nF: %d, %d, %d \nC: %d, %d, %d\n", data.floor[0], data.floor[1], data.floor[2],
+			data.ceiling[0], data.ceiling[1], data.ceiling[2]);
 
-  mlx_loop_hook(data.mlx, game_loop, &data);
+
+	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_close_hook(data.mlx, cross_handler, &data);
 	mlx_loop(data.mlx);

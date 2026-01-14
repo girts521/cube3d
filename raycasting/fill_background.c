@@ -1,20 +1,53 @@
 #include "../cub3d.h"
 
-void fill_background(t_data *data)
+static uint32_t	get_rgba(int r, int g, int b, int a)
 {
-  int j;
-  int i;
-
-  j = 0;
-  while (j < WIN_HEIGHT)
-  {
-    i = 0;
-    while (i < WIN_WIDTH)
-    {
-      uint32_t bg_color = (j < WIN_HEIGHT / 2) ? 0x333333FF : 0x666666FF; 
-      mlx_put_pixel(data->img[0], i, j, bg_color);
-      i++;
-    }
-    j++;
-  }
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
+
+void	fill_background(t_data *data)
+{
+	int			j;
+	int			i;
+	uint32_t	c_color;
+	uint32_t	f_color;
+
+	c_color = get_rgba(data->ceiling[0], data->ceiling[1],
+						data->ceiling[2], 255);
+	f_color = get_rgba(data->floor[0], data->floor[1],
+						data->floor[2], 255);
+	j = 0;
+	while (j < WIN_HEIGHT)
+	{
+		i = 0;
+		while (i < WIN_WIDTH)
+		{
+			if (j < WIN_HEIGHT / 2)
+				mlx_put_pixel(data->img[0], i, j, c_color);
+			else
+				mlx_put_pixel(data->img[0], i, j, f_color);
+			i++;
+		}
+		j++;
+	}
+}
+
+// void fill_background(t_data *data)
+// {
+//   int j;
+//   int i;
+
+//   j = 0;
+//   while (j < WIN_HEIGHT)
+//   {
+//     i = 0;
+//     while (i < WIN_WIDTH)
+//     {
+//       uint32_t bg_color = (j < WIN_HEIGHT / 2) ? 0x333333FF : 0x666666FF;
+//       mlx_put_pixel(data->img[0], i, j, bg_color);
+//       i++;
+//     }
+//     j++;
+//   }
+// }
+

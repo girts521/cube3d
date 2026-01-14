@@ -4,9 +4,8 @@ SO         .test/image.png
    WE .test/image.png
 EA    .test/image.png
 
-F .test/image.png
-
-C .test/image.png
+F  220,100,0
+C    225,30,0
 
 
    111111

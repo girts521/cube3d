@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g 
+CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 SRC = main.c \
@@ -8,6 +8,7 @@ SRC = main.c \
 		parser/parse_map.c \
 		parser/parse_utils.c \
 		parser/fill_map.c	\
+		parser/add_rgb.c	\
 		raycasting/raycasting.c \
 		raycasting/fill_background.c
 

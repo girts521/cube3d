@@ -19,7 +19,7 @@ static void	clean_mlx(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < 6 && data->img[i] != NULL)
+	while (++i < N_TEXTURES && data->img[i] != NULL)
 	{
 		mlx_delete_image(data->mlx, data->img[i]);
 		data->img[i] = NULL;
