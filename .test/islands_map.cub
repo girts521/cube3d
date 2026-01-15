@@ -1,11 +1,11 @@
-NO .test/image.png
-SO         .test/image.png
+NO   textures/main/N.png
+SO         textures/main/S.png
 
-   WE .test/image.png
-EA    .test/image.png
+   WE textures/main/W.png
+EA    textures/main/E.png
 
-F  220,100,0
-C    225,30,0
+F  0,51,25
+C    102,51,0
 
 
    111111

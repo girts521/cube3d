@@ -11,9 +11,9 @@ static uint32_t get_texture_pixel(mlx_image_t *tex, int x, int y)
       return (0x000000FF);
   index = (y * tex->width + x) * 4;
 
-  return (tex->pixels[index] << 24) | 
-          (tex->pixels[index + 1] << 16) | 
-          (tex->pixels[index + 2] << 8) | 
+  return (tex->pixels[index] << 24) |
+          (tex->pixels[index + 1] << 16) |
+          (tex->pixels[index + 2] << 8) |
           (tex->pixels[index + 3]);
 }
 
@@ -28,7 +28,7 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
     int         y;
     uint32_t    color;
 
-    if (ray->mapX < 0 || ray->mapX >= data->map.width || 
+    if (ray->mapX < 0 || ray->mapX >= data->map.width ||
         ray->mapY < 0 || ray->mapY >= data->map.height)
         return;
 
@@ -46,28 +46,28 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
       else
         tex = data->img[SO];
     }
-  
+
     if (ray->side == 0)
         wallX = ray->pos_y + ray->perpWallDist * ray->rayDirY;
     else
         wallX = ray->pos_x + ray->perpWallDist * ray->rayDirX;
-    
+
     wallX -= floor(wallX);
 
     texX = (int)(wallX * (double)tex->width);
 
-    if (ray->side == 0 && ray->rayDirX > 0) 
+    if (ray->side == 0 && ray->rayDirX > 0)
         texX = tex->width - texX - 1;
-    if (ray->side == 1 && ray->rayDirY < 0) 
+    if (ray->side == 1 && ray->rayDirY < 0)
         texX = tex->width - texX - 1;
 
     step = 1.0 * tex->height / ray->lineHeight;
-    
+
     texPos = (ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2) * step;
 
     y = ray->drawStart;
     if (x < 0 || x >= WIN_WIDTH) return;
-    
+
     while (y < ray->drawEnd)
     {
         texY = (int)texPos & (tex->height - 1);
@@ -75,8 +75,8 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
 
         color = get_texture_pixel(tex, texX, texY);
 
-        if (ray->side == 1) 
-            color = (color >> 1) & 0x7F7F7F7F;
+		if (ray->side == 1)
+			color = TINT_COLOR(color, TINT_FACTOR);
 
         if (y >= 0 && y < WIN_HEIGHT)
             mlx_put_pixel(data->screen, x, y, color);
