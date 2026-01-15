@@ -10,16 +10,16 @@ void		render_vertical_line(int x, t_raycasting *ray,
 
 static void	advance_ray(t_raycasting *ray)
 {
-	if (ray->sideDistX < ray->sideDistY)
+	if (ray->side_dist_x < ray->side_dist_y)
 	{
-		ray->sideDistX += ray->deltaDistX;
-		ray->mapX += ray->stepX;
+		ray->side_dist_x += ray->delta_dist_x;
+		ray->map_x += ray->step_x;
 		ray->side = 0;
 	}
 	else
 	{
-		ray->sideDistY += ray->deltaDistY;
-		ray->mapY += ray->stepY;
+		ray->side_dist_y += ray->delta_dist_y;
+		ray->map_y += ray->step_y;
 		ray->side = 1;
 	}
 }
@@ -32,13 +32,13 @@ void	find_wall(t_raycasting *ray, t_data *data)
 	while (hit == 0)
 	{
 		advance_ray(ray);
-		if (ray->mapX < 0 || ray->mapX >= data->map.width
-			|| ray->mapY < 0 || ray->mapY >= data->map.height)
+		if (ray->map_x < 0 || ray->map_x >= data->map.width
+			|| ray->map_y < 0 || ray->map_y >= data->map.height)
 		{
 			hit = 1;
 			break ;
 		}
-		if (data->map.grid[ray->mapY][ray->mapX] > '0')
+		if (data->map.grid[ray->map_y][ray->map_x] > '0')
 			hit = 1;
 	}
 }
@@ -47,16 +47,16 @@ void	find_wall(t_raycasting *ray, t_data *data)
 void	calculate_ray(t_raycasting *ray)
 {
 	if (ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	ray->lineHeight = (int)(WIN_HEIGHT / ray->perpWallDist);
-	ray->drawStart = -ray->lineHeight / 2 + WIN_HEIGHT / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	ray->drawEnd = ray->lineHeight / 2 + WIN_HEIGHT / 2;
-	if (ray->drawEnd >= WIN_HEIGHT)
-		ray->drawEnd = WIN_HEIGHT - 1;
+		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_end >= WIN_HEIGHT)
+		ray->draw_end = WIN_HEIGHT - 1;
 }
 
 void	raycasting(t_data *data)
@@ -69,11 +69,11 @@ void	raycasting(t_data *data)
 	fill_background(data);
 	while (x < (double)WIN_WIDTH)
 	{
-		ray.mapX = (int)ray.pos_x;
-		ray.mapY = (int)ray.pos_y;
-		ray.cameraX = 2 * x / (double)WIN_WIDTH - 1;
-		ray.rayDirX = data->dir_x + ray.plane_x * ray.cameraX;
-		ray.rayDirY = data->dir_y + ray.plane_y * ray.cameraX;
+		ray.map_x = (int)ray.pos_x;
+		ray.map_y = (int)ray.pos_y;
+		ray.camera_x = 2 * x / (double)WIN_WIDTH - 1;
+		ray.ray_dir_x = data->dir_x + ray.plane_x * ray.camera_x;
+		ray.ray_dir_y = data->dir_y + ray.plane_y * ray.camera_x;
 		set_delta(&ray);
 		set_side_dist(&ray);
 		find_wall(&ray, data);
