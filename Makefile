@@ -3,6 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 SRC = main.c \
+		game_loop.c \
 		clean.c \
 		parser/parse_input.c \
 		parser/parse_map.c \

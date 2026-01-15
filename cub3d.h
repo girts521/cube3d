@@ -15,6 +15,9 @@
 
 # define TINT_FACTOR 0.8f
 
+# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.05
+
 typedef enum texture
 {
 	NO,
