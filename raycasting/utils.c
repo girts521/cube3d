@@ -59,3 +59,17 @@ void	set_side_dist(t_raycasting *ray)
 		ray->sideDistY = (ray->mapY + 1.0 - ray->pos_y) * ray->deltaDistY;
 	}
 }
+
+uint32_t	apply_color_tint(uint32_t color, double factor)
+{
+	uint32_t	r;
+	uint32_t	g;
+	uint32_t	b;
+	uint32_t	a;
+
+	r = (uint32_t)(((color >> 24) & 0xFF) * factor);
+	g = (uint32_t)(((color >> 16) & 0xFF) * factor);
+	b = (uint32_t)(((color >> 8) & 0xFF) * factor);
+	a = (uint32_t)((color & 0xFF) * factor);
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}

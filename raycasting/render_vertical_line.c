@@ -1,5 +1,7 @@
 #include "../cub3d.h"
 
+uint32_t	apply_color_tint(uint32_t color, double factor);
+
 static uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
 {
 	int	index;
@@ -58,7 +60,7 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 		st.tex_pos += st.step;
 		st.color = get_texture_pixel(st.tex, texX, st.tex_y);
 		if (ray->side == 1)
-			st.color = TINT_COLOR(st.color, TINT_FACTOR);
+			st.color = apply_color_tint(st.color, TINT_FACTOR);
 		if (st.y >= 0 && st.y < WIN_HEIGHT)
 			mlx_put_pixel(data->screen, x, st.y, st.color);
 		st.y++;

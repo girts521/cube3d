@@ -15,13 +15,6 @@
 
 # define TINT_FACTOR 0.8f
 
-# define TINT_COLOR(c, f)( \
-	((int)(((c >> 24) & 0xFF) * (f)) << 24) | \
-	((int)(((c >> 16) & 0xFF) * (f)) << 16) | \
-	((int)(((c >>  8) & 0xFF) * (f)) <<  8) | \
-	((int)((c & 0xFF) * (f))) \
-)
-
 typedef enum texture
 {
 	NO,
