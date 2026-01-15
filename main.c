@@ -103,6 +103,7 @@ int	main(int argc, char *argv[])
 	init_data(&data);
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
   if (!data.mlx) return (1);
+  data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
   // data.img[0] = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
   // mlx_image_to_window(data.mlx, data.img[0], 0, 0);
 
@@ -111,7 +112,7 @@ int	main(int argc, char *argv[])
 
 	// for (int i = 0; i < 6; i++)
 	// 	printf("%p\n", data.img[i]);
-	mlx_image_to_window(data.mlx, data.img[0], 0, 0);
+	mlx_image_to_window(data.mlx, data.screen, 0, 0);
 
 	// print map
 	printf("height: %d, width: %d\n", data.map.height, data.map.width);

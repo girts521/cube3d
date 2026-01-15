@@ -1,10 +1,10 @@
-NO .test/image.png
-SO .test/image.png
-WE .test/image.png
-EA .test/image.png
+NO /home/girts/Documents/cube3d/textures/N.png
+SO /home/girts/Documents/cube3d/textures/E_2.png
+WE /home/girts/Documents/cube3d/textures/W.png
+EA /home/girts/Documents/cube3d/textures/E.png
 
 F 50,50,50
-C 225,225,0
+C 100,50,50
 
 111111111111111111111111111111111111
 100000000000000100000000000000000001

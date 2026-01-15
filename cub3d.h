@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define WIN_WIDTH 640
-#define WIN_HEIGHT 480
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 740
 
 #define N_TEXTURES 4
 
@@ -35,6 +35,8 @@ typedef struct s_raycasting
   int     stepX;
   int     stepY;
   int     side;
+  double  perpWallDist;
+  int     lineHeight;
   int     drawStart;
   int     drawEnd;
   int     color;
@@ -50,6 +52,7 @@ typedef struct s_map {
 typedef struct s_data {
   mlx_t *mlx;
   mlx_image_t *img[N_TEXTURES];
+  mlx_image_t *screen;
   int floor[3];
   int ceiling[3];
   t_map map;
