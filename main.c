@@ -14,9 +14,6 @@ static void	init_data(t_data *data)
 	data->map.height = 0;
 	data->map.width = 0;
 	data->map.grid = NULL;
-  //FIX: This has to be done by parser:
-  // data->dir_x = 0;
-  // data->dir_y = -1;
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;
@@ -79,14 +76,19 @@ void game_loop(void *param)
         data->plane_y = oldPlaneX * sin(-ROT_SPEED) + data->plane_y * cos(-ROT_SPEED);
     }
 
-    // Movement (Simple check, no collision for simplicity)
-    if (mlx_is_key_down(data->mlx, MLX_KEY_W)) {
-        data->player[0] += data->dir_x * MOVE_SPEED;
-        data->player[1] += data->dir_y * MOVE_SPEED;
-    }
-    if (mlx_is_key_down(data->mlx, MLX_KEY_S)) {
-        data->player[0] -= data->dir_x * MOVE_SPEED;
-        data->player[1] -= data->dir_y * MOVE_SPEED;
+    if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+    {
+        if (data->map.grid[(int)data->player[1]][(int)(data->player[0] + data->dir_x * MOVE_SPEED)] == '0')
+            data->player[0] += data->dir_x * MOVE_SPEED;
+        if (data->map.grid[(int)(data->player[1] + data->dir_y * MOVE_SPEED)][(int)data->player[0]] == '0')
+            data->player[1] += data->dir_y * MOVE_SPEED;
+   }
+    if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+    {
+        if (data->map.grid[(int)data->player[1]][(int)(data->player[0] - data->dir_x * MOVE_SPEED)] == '0')
+          data->player[0] -= data->dir_x * MOVE_SPEED;
+        if (data->map.grid[(int)(data->player[1] - data->dir_y * MOVE_SPEED)][(int)data->player[0]] == '0')
+          data->player[1] -= data->dir_y * MOVE_SPEED;
     }
 
     raycasting(data);
