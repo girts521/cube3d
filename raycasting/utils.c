@@ -11,19 +11,6 @@ void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
 	*(pixel++) = (uint8_t)(color & 0xFF);
 }
 
-uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
-{
-	int	index;
-
-	if (x < 0 || x >= (int)tex->width || y < 0 || y >= (int)tex->height)
-		return (0x000000FF);
-	index = (y * tex->width + x) * 4;
-	return ((tex->pixels[index] << 24)
-		| (tex->pixels[index + 1] << 16)
-		| (tex->pixels[index + 2] << 8)
-		| (tex->pixels[index + 3]));
-}
-
 void	init_ray(t_raycasting *ray, t_data *data)
 {
 	ray->side = 0;
@@ -49,7 +36,7 @@ void	set_delta(t_raycasting *ray)
 		ray->deltaDistY = fabs(1 / ray->rayDirY);
 }
 
-void	set_sideDist(t_raycasting *ray)
+void	set_side_dist(t_raycasting *ray)
 {
 	if (ray->rayDirX < 0)
 	{

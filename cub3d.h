@@ -58,6 +58,16 @@ typedef struct s_raycasting
 	char	wall_type;
 }	t_raycasting;
 
+typedef struct s_stripe
+{
+	mlx_image_t	*tex;
+	double		step;
+	double		tex_pos;
+	int			tex_y;
+	int			y;
+	uint32_t	color;
+}	t_stripe;
+
 typedef struct s_map
 {
 	char	**grid;
