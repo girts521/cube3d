@@ -1,5 +1,7 @@
 #include "../cub3d.h"
 
+void	put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+
 static uint32_t	get_rgba(int r, int g, int b, int a)
 {
 	return ((r << 24) | (g << 16) | (b << 8) | a);
@@ -23,9 +25,9 @@ void	fill_background(t_data *data)
 		while (i < WIN_WIDTH)
 		{
 			if (j < WIN_HEIGHT / 2)
-				mlx_put_pixel(data->img[0], i, j, c_color);
+				put_pixel(data->img[0], i, j, c_color);
 			else
-				mlx_put_pixel(data->img[0], i, j, f_color);
+				put_pixel(data->img[0], i, j, f_color);
 			i++;
 		}
 		j++;

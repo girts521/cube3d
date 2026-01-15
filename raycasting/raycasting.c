@@ -1,6 +1,8 @@
 #include "../cub3d.h"
 #include <math.h>
 
+void	put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+
 int worldMap[24][24] = {
     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -36,9 +38,9 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
     if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
         return;
     else
-        wall_val = data->map.grid[ray->mapY][ray->mapX]; 
+        wall_val = data->map.grid[ray->mapY][ray->mapX];
     y = ray->drawStart;
-    if (wall_val == '1') 
+    if (wall_val == '1')
       color = 0xFF0000FF;
     else if (wall_val == '2')
       color = 0x00FF00FF;
@@ -52,7 +54,7 @@ void render_vertical_line(int x, t_raycasting *ray, t_data *data)
     while (y < ray->drawEnd)
     {
         if (y >= 0 && y < WIN_HEIGHT)
-            mlx_put_pixel(data->img[0], x, y, color);
+            put_pixel(data->img[0], x, y, color);
         y++;
     }
 }
@@ -128,9 +130,9 @@ void find_wall(t_raycasting *ray, t_data *data)
     }
     if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
     {
-        printf("mapX: %d\n mapY: %d\n", ray->mapX, ray->mapY);
-        hit = 1; 
-        break; 
+        //printf("mapX: %d\n mapY: %d\n", ray->mapX, ray->mapY);
+        hit = 1;
+        break;
     }
     if (data->map.grid[ray->mapY][ray->mapX] > '0')
       hit = 1;
@@ -140,7 +142,7 @@ void find_wall(t_raycasting *ray, t_data *data)
 void calculate_ray(t_raycasting *ray)
 {
   double  perpWallDist;
-  int     lineHeight; 
+  int     lineHeight;
 
   if (ray->side == 0)
     perpWallDist = (ray->sideDistX - ray->deltaDistX);
