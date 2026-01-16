@@ -16,6 +16,12 @@ static void	init_data(t_data *data)
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;
+	i = -1;
+	while (++i < 3)
+	{
+		data->floor[i] = 0;
+		data->ceiling[i] = 0;
+	}
 }
 
 static void	cross_handler(void *ptr)
