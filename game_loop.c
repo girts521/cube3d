@@ -17,15 +17,14 @@ static void	rotate_player(t_data *data, double speed)
 		+ data->plane_y * cos(speed);
 }
 
-static void	move_player(t_data *data, double speed)
+void	attempt_move(t_data *data, double move_x, double move_y)
 {
 	if (data->map.grid[(int)data->player[1]][
-		(int)(data->player[0]
-		+ data->dir_x * speed)] == '0')
-		data->player[0] += data->dir_x * speed;
-	if (data->map.grid[(int)(data->player[1] + data->dir_y
-			* speed)][(int)data->player[0]] == '0')
-		data->player[1] += data->dir_y * speed;
+		(int)(data->player[0] + move_x)] == '0')
+		data->player[0] += move_x;
+	if (data->map.grid[(int)(data->player[1] + move_y)][
+		(int)data->player[0]] == '0')
+		data->player[1] += move_y;
 }
 
 void	game_loop(void *param)
@@ -38,8 +37,16 @@ void	game_loop(void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		rotate_player(data, -ROT_SPEED);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		move_player(data, MOVE_SPEED);
+		attempt_move(data, data->dir_x * MOVE_SPEED,
+			data->dir_y * MOVE_SPEED);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		move_player(data, -MOVE_SPEED);
+		attempt_move(data, -data->dir_x * MOVE_SPEED,
+			-data->dir_y * MOVE_SPEED);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		attempt_move(data, -data->dir_y * MOVE_SPEED,
+			data->dir_x * MOVE_SPEED);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		attempt_move(data, data->dir_y * MOVE_SPEED,
+			-data->dir_x * MOVE_SPEED);
 	raycasting(data);
 }
