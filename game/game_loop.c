@@ -2,6 +2,7 @@
 
 void	rotation(t_data *data);
 void	movement(t_data *data);
+void	head_bob(t_data *data);
 
 void	game_loop(void *param)
 {
@@ -10,5 +11,6 @@ void	game_loop(void *param)
 	data = (t_data *)param;
 	rotation(data);
 	movement(data);
+	head_bob(data);
 	raycasting(data);
 }

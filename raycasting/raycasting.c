@@ -44,17 +44,17 @@ void	find_wall(t_raycasting *ray, t_data *data)
 }
 //printf("mapX: %d\n mapY: %d\n", ray->mapX, ray->mapY);
 
-void	calculate_ray(t_raycasting *ray)
+void	calculate_ray(t_raycasting *ray, t_data *data)
 {
 	if (ray->side == 0)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
+	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2 + data->pitch;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2 + data->pitch;
 	if (ray->draw_end >= WIN_HEIGHT)
 		ray->draw_end = WIN_HEIGHT - 1;
 }
@@ -77,7 +77,7 @@ void	raycasting(t_data *data)
 		set_delta(&ray);
 		set_side_dist(&ray);
 		find_wall(&ray, data);
-		calculate_ray(&ray);
+		calculate_ray(&ray, data);
 		render_vertical_line(x, &ray, data);
 		x++;
 	}

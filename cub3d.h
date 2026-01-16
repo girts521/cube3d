@@ -21,6 +21,9 @@
 
 # define MAX_SPEED 1.7
 
+# define HEAD_BOB 3.0
+// 0.0 = off
+
 typedef enum texture
 {
 	NO,
@@ -89,6 +92,8 @@ typedef struct s_data
 	double		plane_y;
 	double		move_mult;
 	int			dodge_timer;
+	double		walk_timer;
+	int			pitch;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);
