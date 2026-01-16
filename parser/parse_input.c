@@ -6,13 +6,6 @@ void	fill_map(t_data *data, char *argv[], int fd_len);
 void	validate_map(t_data *data);
 int		add_rgb(const char *str, int *rgb, t_data *data);
 
-
-static int free_t(mlx_texture_t *t)
-{
-	mlx_delete_texture(t);
-	return (1);
-}
-
 static int	add_element(char *line, int element, t_data *data)
 {
 	mlx_texture_t	*t;
@@ -23,15 +16,19 @@ static int	add_element(char *line, int element, t_data *data)
 	if (!t)
 		return (1);
 	if (data->img[element] != NULL)
-		free_t(t);
+	{
+		mlx_delete_texture(t);
+		return (1);
+	}
 	data->img[element] = mlx_texture_to_image(data->mlx, t);
 	if (!data->img[element])
-		free_t(t);
+	{
+		mlx_delete_texture(t);
+		return (1);
+	}
 	mlx_delete_texture(t);
 	return (0);
 }
-// texture needs to be freed too!
-
 
 static int	parse_element(char *line, t_data *data)
 {
@@ -54,21 +51,20 @@ static int	parse_element(char *line, t_data *data)
 
 static int	process_element(char *line, t_data *data, int *fd_len)
 {
-	if (line[0] == '\0') // get_next_line retuns \0 with_n=0
+	if (line[0] == '\0')
 	{
 		(*fd_len)++;
-		return(0);
+		return (0);
 	}
 	*fd_len += (ft_strlen(line) + 1);
 	return (parse_element(line, data));
 }
-
-
+// get_next_line retuns \0 with_n=0
 
 static int	handle_line(t_data *data, int fd, int *fd_len)
 {
 	char	*line;
-	char	malloc_failure; // handle malloc inside get_next_line
+	char	malloc_failure;
 
 	line = get_next_line(fd, &malloc_failure, 0);
 	malloc_failure = 0;
@@ -93,8 +89,8 @@ static int	handle_line(t_data *data, int fd, int *fd_len)
 
 void	parse_input(t_data *data, char *argv[])
 {
-	int		fd;
-	int		fd_len;
+	int	fd;
+	int	fd_len;
 
 	fd_len = 0;
 	fd = open(argv[1], O_RDONLY);

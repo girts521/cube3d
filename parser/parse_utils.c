@@ -9,7 +9,7 @@ int	detect_map(char *line)
 	return (0);
 }
 
-int check_trailing_lines(int fd, t_data *data)
+int	check_trailing_lines(int fd, t_data *data)
 {
 	char	*line;
 	char	malloc_failure;
@@ -23,7 +23,7 @@ int check_trailing_lines(int fd, t_data *data)
 			clean(data, "failure inside gnl\n", 1, fd);
 		if (!line)
 			break ;
-		while(line[++i])
+		while (line[++i])
 		{
 			if (!(line[i] == ' ' || line[i] == '\n' || line[i] == '\0'))
 			{
@@ -66,27 +66,9 @@ void	validate_map(t_data *data)
 	}
 }
 
-// int check_trailing_lines(int fd)
-// {
-// 	char	buf;
-// 	ssize_t	byte;
-
-// 	int i = 0;
-
-// 	byte = read(fd, &buf, 1);
-// 	printf("\n%ld\n", byte); // is 0??
-// 	while (byte)
-// 	{
-// 		printf("%d\n", i);
-
-// 		if (byte == -1)
-// 			return (1);
-// 		if (!(buf == ' ' || buf == '\n' || buf == '\0'))
-// 			return (1);
-// 		byte = read(fd, &buf, 1);
-// 	}
-// 	printf("\n%ld\n", byte);
-// 	return (0);
-// }
-// mixing read() and gnl is a bad idea... buffer eats up stuff!!
-// -> set buffer to 1 or use gnl again
+void	helper_fill_player(t_data *data, int o, int dir_x, int dir_y)
+{
+	data->player[2] = o;
+	data->dir_x = dir_x;
+	data->dir_y = dir_y;
+}

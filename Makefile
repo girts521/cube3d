@@ -3,6 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 SRC = main.c \
+		game_loop.c \
 		clean.c \
 		parser/parse_input.c \
 		parser/parse_map.c \
@@ -11,6 +12,7 @@ SRC = main.c \
 		parser/add_rgb.c	\
 		raycasting/raycasting.c \
 		raycasting/fill_background.c \
+		raycasting/render_vertical_line.c \
 		raycasting/utils.c
 
 OBJ = $(SRC:.c=.o)
