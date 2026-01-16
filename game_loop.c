@@ -27,11 +27,27 @@ void	attempt_move(t_data *data, double move_x, double move_y)
 		data->player[1] += move_y;
 }
 
+void	handle_mouse(t_data *data)
+{
+	int32_t	x;
+	int32_t	y;
+	int		delta_x;
+
+	mlx_get_mouse_pos(data->mlx, &x, &y);
+	delta_x = x - (WIN_WIDTH / 2);
+	if (delta_x != 0)
+	{
+		rotate_player(data, delta_x * MOUSE_SENS);
+		mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	}
+}
+
 void	game_loop(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
+	handle_mouse(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		rotate_player(data, ROT_SPEED);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

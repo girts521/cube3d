@@ -54,12 +54,10 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 	if (!data.mlx)
 		return (1);
+	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // Still appears on my end??
+	mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	parse_input(&data, argv);
-	game_loop(&data);
-
-	// for (int i = 0; i < 6; i++)
-	// 	printf("%p\n", data.img[i]);
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
 
 	// print map
