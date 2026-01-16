@@ -8,10 +8,19 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define WIN_WIDTH 640
-#define WIN_HEIGHT 480
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 740
 
 #define N_TEXTURES 4
+
+#define TINT_FACTOR 0.8f
+
+#define TINT_COLOR(c, f)( \
+	((int)(((c >> 24) & 0xFF) * (f)) << 24) | \
+	((int)(((c >> 16) & 0xFF) * (f)) << 16) | \
+	((int)(((c >>  8) & 0xFF) * (f)) <<  8) | \
+	((int)((c & 0xFF) * (f))) \
+)
 
 typedef enum texture {NO, SO, WE, EA} t_texture;
 
@@ -35,6 +44,8 @@ typedef struct s_raycasting
   int     stepX;
   int     stepY;
   int     side;
+  double  perpWallDist;
+  int     lineHeight;
   int     drawStart;
   int     drawEnd;
   int     color;
@@ -50,6 +61,7 @@ typedef struct s_map {
 typedef struct s_data {
   mlx_t *mlx;
   mlx_image_t *img[N_TEXTURES];
+  mlx_image_t *screen;
   int floor[3];
   int ceiling[3];
   t_map map;

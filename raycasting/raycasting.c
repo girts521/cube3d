@@ -3,58 +3,83 @@
 
 void	put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
 
-int worldMap[24][24] = {
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 3, 0, 3, 0, 3, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 0, 0, 0, 0, 5, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 0, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+static uint32_t get_texture_pixel(mlx_image_t *tex, int x, int y)
+{
+  int index;
+
+  if (x < 0 || x >= (int)tex->width || y < 0 || y >= (int)tex->height)
+      return (0x000000FF);
+  index = (y * tex->width + x) * 4;
+
+  return (tex->pixels[index] << 24) |
+          (tex->pixels[index + 1] << 16) |
+          (tex->pixels[index + 2] << 8) |
+          (tex->pixels[index + 3]);
+}
 
 void render_vertical_line(int x, t_raycasting *ray, t_data *data)
 {
-    int       y;
-    uint32_t  color;
-    char       wall_val;
+    mlx_image_t *tex;
+    double      wallX;
+    int         texX;
+    int         texY;
+    double      step;
+    double      texPos;
+    int         y;
+    uint32_t    color;
 
-    if (ray->mapX < 0 || ray->mapX >= data->map.width || ray->mapY < 0 || ray->mapY >= data->map.height)
+    if (ray->mapX < 0 || ray->mapX >= data->map.width ||
+        ray->mapY < 0 || ray->mapY >= data->map.height)
         return;
+
+    if (ray->side == 0)
+    {
+      if (ray->rayDirX > 0)
+        tex = data->img[WE];
+      else
+        tex = data->img[EA];
+    }
     else
-        wall_val = data->map.grid[ray->mapY][ray->mapX];
+    {
+      if (ray->rayDirY > 0)
+        tex = data->img[NO];
+      else
+        tex = data->img[SO];
+    }
+
+    if (ray->side == 0)
+        wallX = ray->pos_y + ray->perpWallDist * ray->rayDirY;
+    else
+        wallX = ray->pos_x + ray->perpWallDist * ray->rayDirX;
+
+    wallX -= floor(wallX);
+
+    texX = (int)(wallX * (double)tex->width);
+
+    if (ray->side == 0 && ray->rayDirX > 0)
+        texX = tex->width - texX - 1;
+    if (ray->side == 1 && ray->rayDirY < 0)
+        texX = tex->width - texX - 1;
+
+    step = 1.0 * tex->height / ray->lineHeight;
+
+    texPos = (ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2) * step;
+
     y = ray->drawStart;
-    if (wall_val == '1')
-      color = 0xFF0000FF;
-    else if (wall_val == '2')
-      color = 0x00FF00FF;
-    else if (wall_val == '3')
-      color = 0x0000FFFF;
-    else
-      color = 0xFFFF00FF;
-    if (ray->side == 1)
-        color = (color >> 1) & 0x7F7F7F7F;
     if (x < 0 || x >= WIN_WIDTH) return;
+
     while (y < ray->drawEnd)
     {
+        texY = (int)texPos & (tex->height - 1);
+        texPos += step;
+
+        color = get_texture_pixel(tex, texX, texY);
+
+		if (ray->side == 1)
+			color = TINT_COLOR(color, TINT_FACTOR);
+
         if (y >= 0 && y < WIN_HEIGHT)
-            put_pixel(data->img[0], x, y, color);
+            mlx_put_pixel(data->screen, x, y, color);
         y++;
     }
 }
@@ -141,18 +166,15 @@ void find_wall(t_raycasting *ray, t_data *data)
 
 void calculate_ray(t_raycasting *ray)
 {
-  double  perpWallDist;
-  int     lineHeight;
-
   if (ray->side == 0)
-    perpWallDist = (ray->sideDistX - ray->deltaDistX);
+    ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
   else
-    perpWallDist = (ray->sideDistY - ray->deltaDistY);
-  lineHeight = (int)(WIN_HEIGHT / perpWallDist);
-  ray->drawStart = -lineHeight / 2 + WIN_HEIGHT / 2;
+    ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+  ray->lineHeight = (int)(WIN_HEIGHT / ray->perpWallDist);
+  ray->drawStart = -ray->lineHeight / 2 + WIN_HEIGHT / 2;
   if (ray->drawStart < 0)
     ray->drawStart = 0;
-  ray->drawEnd = lineHeight / 2 + WIN_HEIGHT / 2;
+  ray->drawEnd = ray->lineHeight / 2 + WIN_HEIGHT / 2;
   if (ray->drawEnd >= WIN_HEIGHT)
     ray->drawEnd = WIN_HEIGHT - 1;
 }

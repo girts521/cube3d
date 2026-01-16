@@ -23,7 +23,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 MLX = .MLX42/build/libmlx42.a
 
-%.o: %.c
+%.o: %.c cub3d.h
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
