@@ -17,7 +17,7 @@
 
 # define ROT_SPEED 0.05
 # define MOUSE_SENS 0.0005
-# define MOVE_SPEED 0.05
+# define MOVE_SPEED 0.03
 
 # define MAX_SPEED 1.7
 

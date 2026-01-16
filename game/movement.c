@@ -55,9 +55,9 @@ void	movement(t_data *data)
 		attempt_move(data, -data->dir_x * speed,
 			-data->dir_y * speed);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		attempt_move(data, -data->dir_y * speed,
-			data->dir_x * speed);
+		attempt_move(data, -data->dir_y * (speed / 2.5),
+			data->dir_x * (speed / 2.5));
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		attempt_move(data, data->dir_y * speed,
-			-data->dir_x * speed);
+		attempt_move(data, data->dir_y * (speed / 2.5),
+			-data->dir_x * (speed / 2.5));
 }
