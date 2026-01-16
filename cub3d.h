@@ -19,6 +19,8 @@
 # define MOUSE_SENS 0.0005
 # define MOVE_SPEED 0.05
 
+# define MAX_SPEED 1.7
+
 typedef enum texture
 {
 	NO,
@@ -86,6 +88,7 @@ typedef struct s_data
 	double		plane_x;
 	double		plane_y;
 	double		move_mult;
+	int			dodge_timer;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);

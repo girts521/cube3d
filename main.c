@@ -14,6 +14,7 @@ static void	init_data(t_data *data)
 	data->map.width = 0;
 	data->map.grid = NULL;
 	data->move_mult = 1.0;
+	data->dodge_timer = 0;
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;

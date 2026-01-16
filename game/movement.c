@@ -15,8 +15,8 @@ static void	sprint(t_data *data)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
 	{
 		data->move_mult += 0.01;
-		if (data->move_mult > 1.7)
-			data->move_mult = 1.7;
+		if (data->move_mult > MAX_SPEED)
+			data->move_mult = MAX_SPEED;
 	}
 	else
 	{
@@ -26,11 +26,27 @@ static void	sprint(t_data *data)
 	}
 }
 
+void	dodge(t_data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE)
+		&& data->dodge_timer == 0)
+	{
+		data->move_mult += 4.5;
+		data->dodge_timer = 60;
+	}
+	if (data->dodge_timer > 0)
+		data->dodge_timer--;
+	if (data->move_mult > MAX_SPEED)
+		data->move_mult -= 0.2;
+}
+
 void	movement(t_data *data)
 {
 	double	speed;
 
-	sprint(data);
+	dodge(data);
+	if (data->move_mult <= MAX_SPEED)
+		sprint(data);
 	speed = MOVE_SPEED * data->move_mult;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		attempt_move(data, data->dir_x * speed,
