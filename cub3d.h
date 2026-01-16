@@ -85,7 +85,7 @@ typedef struct s_data
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
-
+	double		move_mult;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);
