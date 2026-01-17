@@ -26,6 +26,31 @@ static void	init_data(t_data *data)
 	}
 }
 
+static void	init_floor_ceiling(t_data *data)
+{
+	mlx_texture_t	*t;
+
+	t = mlx_load_png("textures/main/N.png");
+	if (!t)
+		clean(data, "load_png failed\n", 1, -1);
+	data->img[C] = mlx_texture_to_image(data->mlx, t);
+	if (!data->img[C])
+	{
+		mlx_delete_texture(t);
+		clean(data, "load ceiling failed\n", 1, -1);
+	}
+	t = mlx_load_png("textures/main/N.png");
+	if (!t)
+		clean(data, "load_png failed\n", 1, -1);
+	data->img[F] = mlx_texture_to_image(data->mlx, t);
+	if (!data->img[F])
+	{
+		mlx_delete_texture(t);
+		clean(data, "load floor failed\n", 1, -1);
+	}
+	mlx_delete_texture(t);
+}
+
 static void	cross_handler(void *ptr)
 {
 	t_data	*data;
@@ -60,6 +85,8 @@ int	main(int argc, char *argv[])
 	mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	parse_input(&data, argv);
+	if (F_C_TEXTURE)
+		init_floor_ceiling(&data);
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
 
 	// print map

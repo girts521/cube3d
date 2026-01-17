@@ -2,7 +2,7 @@
 
 uint32_t	apply_color_tint(uint32_t color, double factor);
 
-static uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
+uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
 {
 	int	index;
 

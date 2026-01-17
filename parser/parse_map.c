@@ -7,7 +7,7 @@ static int	check_elements_presence(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < N_TEXTURES)
+	while (++i < N_TEXTURES - 2)
 	{
 		if (data->img[i] == NULL)
 			return (1);

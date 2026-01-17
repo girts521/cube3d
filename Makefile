@@ -15,6 +15,7 @@ SRC = main.c \
 		raycasting/raycasting.c \
 		raycasting/fill_background.c \
 		raycasting/render_vertical_line.c \
+		raycasting/floor_ceiling.c \
 		raycasting/utils.c
 
 OBJ = $(SRC:.c=.o)

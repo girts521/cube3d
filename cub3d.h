@@ -11,7 +11,9 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
 
-# define N_TEXTURES 4
+# define F_C_TEXTURE 1
+
+# define N_TEXTURES 6
 
 # define TINT_FACTOR 0.8f
 
@@ -29,7 +31,9 @@ typedef enum texture
 	NO,
 	SO,
 	WE,
-	EA
+	EA,
+	F,
+	C
 }	t_texture;
 
 typedef struct s_raycasting
@@ -69,6 +73,12 @@ typedef struct s_stripe
 	int			y;
 	uint32_t	color;
 }	t_stripe;
+
+typedef struct s_wall_hit
+{
+	double	x;
+	double	y;
+}	t_wall_hit;
 
 typedef struct s_map
 {

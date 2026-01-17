@@ -7,6 +7,7 @@ void		set_delta(t_raycasting *ray);
 void		set_side_dist(t_raycasting *ray);
 void		render_vertical_line(int x, t_raycasting *ray,
 				t_data *data);
+void		render_floor_ceiling(t_data *data, t_raycasting *ray, int x);
 
 static void	advance_ray(t_raycasting *ray)
 {
@@ -66,7 +67,8 @@ void	raycasting(t_data *data)
 
 	x = 0;
 	init_ray(&ray, data);
-	fill_background(data);
+	if (!F_C_TEXTURE)
+		fill_background(data);
 	while (x < (double)WIN_WIDTH)
 	{
 		ray.map_x = (int)ray.pos_x;
@@ -79,6 +81,8 @@ void	raycasting(t_data *data)
 		find_wall(&ray, data);
 		calculate_ray(&ray, data);
 		render_vertical_line(x, &ray, data);
+		if (F_C_TEXTURE)
+			render_floor_ceiling(data, &ray, x);
 		x++;
 	}
 }
