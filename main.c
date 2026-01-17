@@ -30,7 +30,7 @@ static void	init_floor_ceiling(t_data *data)
 {
 	mlx_texture_t	*t;
 
-	t = mlx_load_png("textures/main/N.png");
+	t = mlx_load_png("textures/main/C.png");
 	if (!t)
 		clean(data, "load_png failed\n", 1, -1);
 	data->img[C] = mlx_texture_to_image(data->mlx, t);
@@ -39,7 +39,7 @@ static void	init_floor_ceiling(t_data *data)
 		mlx_delete_texture(t);
 		clean(data, "load ceiling failed\n", 1, -1);
 	}
-	t = mlx_load_png("textures/main/N.png");
+	t = mlx_load_png("textures/main/F8.png");
 	if (!t)
 		clean(data, "load_png failed\n", 1, -1);
 	data->img[F] = mlx_texture_to_image(data->mlx, t);
