@@ -7,6 +7,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <sys/time.h>
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
