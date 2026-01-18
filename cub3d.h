@@ -21,6 +21,7 @@
 # define ROT_SPEED 0.05
 # define MOUSE_SENS 0.0005
 # define MOVE_SPEED 0.03
+//# define MOVE_SPEED 1.8
 
 # define MAX_SPEED 1.7
 
@@ -101,10 +102,12 @@ typedef struct s_data
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
+	double		speed;
 	double		move_mult;
 	int			dodge_timer;
 	double		walk_timer;
 	int			pitch;
+	double		dt;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);

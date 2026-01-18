@@ -13,6 +13,7 @@ static void	init_data(t_data *data)
 	data->map.height = 0;
 	data->map.width = 0;
 	data->map.grid = NULL;
+	data->speed = MOVE_SPEED;
 	data->move_mult = 1.0;
 	data->dodge_timer = 0;
 	i = -1;
