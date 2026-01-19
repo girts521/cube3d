@@ -52,10 +52,12 @@ void	calculate_ray(t_raycasting *ray, t_data *data)
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
-	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2 + data->pitch;
+	ray->draw_start = (-ray->line_height * (1.0 - data->cam_height))
+		+ WIN_HEIGHT / 2.0 + data->pitch;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2 + data->pitch;
+	ray->draw_end = (ray->line_height * data->cam_height)
+		+ WIN_HEIGHT / 2.0 + data->pitch;
 	if (ray->draw_end >= WIN_HEIGHT)
 		ray->draw_end = WIN_HEIGHT - 1;
 }

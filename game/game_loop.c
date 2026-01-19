@@ -74,15 +74,26 @@ void track_time(t_data *data)
 	}
 }
 
+static void	cam_height_transition (t_data *data)
+{
+	if (data->cam_height < data->target_height)
+		data->cam_height += 0.015;
+	else if (data->cam_height > data->target_height)
+		data->cam_height -= 0.015;
+	if (fabs(data->cam_height - data->target_height) < 0.015)
+		data->cam_height = data->target_height;
+}
+
 void	game_loop(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	//track_time(data);
+	track_time(data);
 	rotation(data);
 	movement(data);
+	cam_height_transition(data);
 	head_bob(data);
 	raycasting(data);
-	fps();
+	//fps();
 }

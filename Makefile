@@ -7,6 +7,7 @@ SRC = main.c \
 		game/game_loop.c \
 		game/movement.c \
 		game/rotation.c \
+		game/key_handler.c \
 		parser/parse_input.c \
 		parser/parse_map.c \
 		parser/parse_utils.c \

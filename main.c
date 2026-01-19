@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
 void	game_loop(void *param);
+void	key_handler(mlx_key_data_t keydata, void *param);
 
 static void	init_data(t_data *data)
 {
@@ -14,8 +15,11 @@ static void	init_data(t_data *data)
 	data->map.width = 0;
 	data->map.grid = NULL;
 	data->speed = MOVE_SPEED;
+	data->crouch = -1;
 	data->move_mult = 1.0;
 	data->dodge_timer = 0;
+	data->cam_height = 0.5;
+	data->target_height = 0.5;
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;
@@ -58,18 +62,6 @@ static void	cross_handler(void *ptr)
 
 	data = (t_data *) ptr;
 	clean(data, NULL, 0, -1);
-}
-
-static void	key_handler(mlx_key_data_t keydata, void *param)
-{
-	t_data	*data;
-
-	if (keydata.action == 1)
-	{
-		data = (t_data *)param;
-		if (keydata.key == 256)
-			clean(data, NULL, 0, -1);
-	}
 }
 
 int	main(int argc, char *argv[])

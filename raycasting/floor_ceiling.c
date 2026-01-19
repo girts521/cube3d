@@ -44,7 +44,8 @@ static void	draw_ceiling(t_data *data, t_raycasting *ray, t_wall_hit *hit,
 	tex = data->img[C];
 	while (y < ray->draw_start)
 	{
-		cur_dist = WIN_HEIGHT / (WIN_HEIGHT - 2.0 * y + 2 * data->pitch);
+		cur_dist = (WIN_HEIGHT * (1.0 - data->cam_height))
+			/ (WIN_HEIGHT / 2.0 + data->pitch - y);
 		weight = cur_dist / ray->perp_wall_dist;
 		color = get_texture_pixel(tex, (int)((weight * hit->x + (1.0 - weight)
 						* ray->pos_x) * tex->width) % tex->width,
@@ -69,7 +70,8 @@ static void	draw_floor(t_data *data, t_raycasting *ray, t_wall_hit *hit, int x)
 	tex = data->img[F];
 	while (y < WIN_HEIGHT)
 	{
-		cur_dist = WIN_HEIGHT / (2.0 * y - WIN_HEIGHT - 2 * data->pitch);
+		cur_dist = (WIN_HEIGHT * data->cam_height)
+			/ (y - WIN_HEIGHT / 2.0 - data->pitch);
 		weight = cur_dist / ray->perp_wall_dist;
 		color = get_texture_pixel(tex, (int)((weight * hit->x + (1.0 - weight)
 						* ray->pos_x) * tex->width) % tex->width,
