@@ -107,6 +107,7 @@ typedef struct s_data
 	double		speed;
 	int			crouch;
 	int			dodge;
+	int			jump;
 	double		move_mult;
 	int			dodge_timer;
 	double		walk_timer;

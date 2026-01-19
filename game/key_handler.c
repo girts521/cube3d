@@ -22,11 +22,22 @@ static void	dodge(t_data *data)
 		data->dodge = 1;
 		data->dodge_timer = 60;
 		data->move_mult += 4.5;
-		if (data->crouch != 1)
+		if (data->crouch != 1 && data->jump == 0)
 		{
 			data->target_height = 0.2;
 			data->cam_speed_down = 0.05;
 		}
+	}
+}
+
+static void	jump(t_data *data)
+{
+	if (!data->jump)
+	{
+		data->jump = 1;
+		data->target_height = data->cam_height + 0.45;
+		data->cam_speed_up = 0.03;
+		data->cam_speed_down = 0.01;
 	}
 }
 
@@ -41,7 +52,9 @@ void	key_handler(mlx_key_data_t keydata, void *param)
 			clean(data, NULL, 0, -1);
 		if (keydata.key == MLX_KEY_C)
 			crouch(data);
-		if (keydata.key == MLX_KEY_SPACE)
+		if (keydata.key == MLX_KEY_V)
 			dodge(data);
+		if (keydata.key == MLX_KEY_SPACE)
+			jump(data);
 	}
 }

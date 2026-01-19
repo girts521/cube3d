@@ -2,7 +2,6 @@
 
 void	rotation(t_data *data);
 void	movement(t_data *data);
-void	head_bob(t_data *data);
 
 // static void	fps(void)
 // {
@@ -71,6 +70,23 @@ void track_time(t_data *data)
 		printf("FPS: %d | dt: %.5f\n", frame_count, data->dt);
 		frame_count = 0;
 		fps_start_time = current_time; // Reset only the FPS timer
+	}
+}
+
+static void	head_bob(t_data *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W)
+		|| mlx_is_key_down(data->mlx, MLX_KEY_S)
+		|| mlx_is_key_down(data->mlx, MLX_KEY_A)
+		|| mlx_is_key_down(data->mlx, MLX_KEY_D))
+	{
+		data->walk_timer += 0.1 * data->move_mult;
+		data->pitch = sin(data->walk_timer) * HEAD_BOB;
+	}
+	else
+	{
+		data->pitch = 0;
+		data->walk_timer = 0;
 	}
 }
 

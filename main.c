@@ -17,6 +17,7 @@ static void	init_data(t_data *data)
 	data->speed = MOVE_SPEED;
 	data->crouch = -1;
 	data->dodge = 0;
+	data->jump = 0;
 	data->move_mult = 1.0;
 	data->dodge_timer = 0;
 	data->cam_height = 0.5;
