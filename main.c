@@ -16,10 +16,13 @@ static void	init_data(t_data *data)
 	data->map.grid = NULL;
 	data->speed = MOVE_SPEED;
 	data->crouch = -1;
+	data->dodge = 0;
 	data->move_mult = 1.0;
 	data->dodge_timer = 0;
 	data->cam_height = 0.5;
 	data->target_height = 0.5;
+	data->cam_speed_up = CAM_POS_SPEED;
+	data->cam_speed_down = CAM_POS_SPEED;
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;

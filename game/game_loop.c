@@ -77,11 +77,15 @@ void track_time(t_data *data)
 static void	cam_height_transition (t_data *data)
 {
 	if (data->cam_height < data->target_height)
-		data->cam_height += 0.015;
+		data->cam_height += data->cam_speed_up;
 	else if (data->cam_height > data->target_height)
-		data->cam_height -= 0.015;
-	if (fabs(data->cam_height - data->target_height) < 0.015)
+		data->cam_height -= data->cam_speed_down;
+	if (fabs(data->cam_height - data->target_height) < CAM_POS_SPEED)
+	{
 		data->cam_height = data->target_height;
+		data->cam_speed_up = CAM_POS_SPEED;
+		data->cam_speed_down = CAM_POS_SPEED;
+	}
 }
 
 void	game_loop(void *param)

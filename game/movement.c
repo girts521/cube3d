@@ -32,24 +32,6 @@ static void	sprint(t_data *data)
 	}
 }
 
-void	dodge(t_data *data)
-{
-	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE)
-		&& data->dodge_timer == 0)
-	{
-		data->move_mult += 4.5;
-		data->dodge_timer = 60;
-	}
-	if (data->dodge_timer > 0)
-		data->dodge_timer--;
-	if (data->move_mult > MAX_SPEED)
-	{
-		data->move_mult -= 0.2;
-		data->pitch = 0;
-		data->walk_timer = 0;
-	}
-}
-
 void	head_bob(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W)
@@ -67,11 +49,32 @@ void	head_bob(t_data *data)
 	}
 }
 
+static void	handle_dodge(t_data *data)
+{
+	if (data->dodge_timer != 0)
+		data->dodge_timer--;
+	if (!data->dodge)
+		return ;
+	if (data->move_mult > MAX_SPEED)
+	{
+		data->move_mult -= 0.2;
+		data->pitch = 0;
+		data->walk_timer = 0;
+	}
+	else
+	{
+		data->dodge = 0;
+		data->dodge_timer = 60;
+		if (data->crouch != 1)
+			data->target_height = 0.5;
+	}
+}
+
 void	movement(t_data *data)
 {
 	double	speed;
 
-	dodge(data);
+	handle_dodge(data);
 	if (data->move_mult <= MAX_SPEED)
 		sprint(data);
 	speed = data->speed * data->move_mult;
