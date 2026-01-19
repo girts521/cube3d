@@ -66,7 +66,10 @@ static void	handle_dodge(t_data *data)
 		data->dodge = 0;
 		data->dodge_timer = 60;
 		if (data->crouch != 1)
+		{
 			data->target_height = 0.5;
+			data->cam_speed_down = CAM_POS_SPEED;
+		}
 	}
 }
 
