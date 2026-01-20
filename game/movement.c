@@ -41,7 +41,7 @@ static void	handle_dodge(t_data *data)
 	if (data->move_mult > MAX_SPEED)
 	{
 		data->move_mult -= 0.2;
-		data->pitch = 0;
+		data->bob_pitch = 0;
 		data->walk_timer = 0;
 	}
 	else

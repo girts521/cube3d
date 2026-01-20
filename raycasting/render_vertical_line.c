@@ -52,7 +52,7 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 	st.tex = get_wall_texture(data, ray);
 	st.step = 1.0 * st.tex->height / ray->line_height;
 
-	st.tex_pos = (ray->draw_start - data->pitch - WIN_HEIGHT
+	st.tex_pos = (ray->draw_start - (data->bob_pitch + data->pitch) - WIN_HEIGHT
 		/ 2 + ray->line_height * (1.0 - data->cam_height)) * st.step;
 	st.y = ray->draw_start;
 	while (st.y < ray->draw_end)

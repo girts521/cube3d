@@ -81,11 +81,11 @@ static void	head_bob(t_data *data)
 		|| mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
 		data->walk_timer += 0.1 * data->move_mult;
-		data->pitch = sin(data->walk_timer) * HEAD_BOB;
+		data->bob_pitch = sin(data->walk_timer) * HEAD_BOB;
 	}
 	else
 	{
-		data->pitch = 0;
+		data->bob_pitch = 0;
 		data->walk_timer = 0;
 	}
 }

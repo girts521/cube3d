@@ -111,7 +111,8 @@ typedef struct s_data
 	double		move_mult;
 	int			dodge_timer;
 	double		walk_timer;
-	int			pitch;
+	double		pitch;
+	double		bob_pitch;
 	double		cam_height;
 	double		target_height;
 	double		cam_speed_up;
