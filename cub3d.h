@@ -8,6 +8,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <sys/time.h>
+#include ".miniaudio/miniaudio.h"
+
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
@@ -94,6 +96,7 @@ typedef struct s_map
 typedef struct s_data
 {
 	mlx_t		*mlx;
+	ma_engine	audio_engine;
 	mlx_image_t	*img[N_TEXTURES];
 	mlx_image_t	*screen;
 	int			floor[3];

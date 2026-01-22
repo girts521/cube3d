@@ -103,6 +103,16 @@ int	main(int argc, char *argv[])
 			data.ceiling[0], data.ceiling[1], data.ceiling[2]);
 
 
+	int	r;
+	if ((r = ma_engine_init(NULL, &data.audio_engine)) != MA_SUCCESS)
+	{
+		printf("%d\n", r);
+		clean(&data, "miniaudio init failed\n", 1, -1);
+	}
+	// Play background music (looping)
+	ma_engine_play_sound(&data.audio_engine, "audio/test.wav", NULL);
+
+
 	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_close_hook(data.mlx, cross_handler, &data);

@@ -43,5 +43,6 @@ int	clean(t_data *data, char *err_mess, int status, int fd)
 		printf("\nError\n%s", err_mess);
 	if (fd != -1)
 		close(fd);
+	ma_engine_uninit(&data->audio_engine);
 	exit(status);
 }

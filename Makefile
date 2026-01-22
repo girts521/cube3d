@@ -1,6 +1,10 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
+#CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
+CFLAGS = -Isrc -O3 -g
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
+
+MLX_DIR = .MLX42
+AUDIO_DIR = .miniaudio
 
 SRC = main.c \
 		clean.c \
@@ -17,7 +21,8 @@ SRC = main.c \
 		raycasting/fill_background.c \
 		raycasting/render_vertical_line.c \
 		raycasting/floor_ceiling.c \
-		raycasting/utils.c
+		raycasting/utils.c \
+		$(AUDIO_DIR)/miniaudio.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -34,7 +39,7 @@ MLX = .MLX42/build/libmlx42.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ)
+$(NAME): $(LIBFT) $(MLX) $(AUDIO_DIR) $(OBJ)
 	@cp $(LIBFT) libft.a
 	@cp $(MLX) libmlx42.a
 	@$(CC) $(CFLAGS) $(OBJ) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
@@ -43,12 +48,20 @@ $(NAME): $(LIBFT) $(MLX) $(OBJ)
 $(LIBFT):
 	@make -C $(LIBFT_PATH) all --no-print-directory
 
-$(MLX):
-	@cmake MLX42 -B  MLX42/build > /dev/null 2>&1
-	@make -C $ MLX42/build -j4 > /dev/null 2>&1
+$(MLX_DIR):
+	@echo "Downloading MLX42..."
+	@git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR)
+
+$(AUDIO_DIR):
+	@echo "Downloading miniaudio..."
+	@git clone https://github.com/mackron/miniaudio $(AUDIO_DIR)
+
+$(MLX): | $(MLX_DIR)
+	@cmake $(MLX_DIR) -B  $(MLX_DIR)/build > /dev/null 2>&1
+	@make -C $(MLX_DIR)/build -j4 > /dev/null 2>&1
 
 clean:
-	@rm -rf MLX42/build
+	@rm -rf $(MLX_DIR)/build
 	@rm -f $(OBJ) libft.a libmlx42.a
 	@echo "/* Removed o-files $(NAME) */"
 	@make -C $(LIBFT_PATH) clean --no-print-directory
@@ -64,4 +77,20 @@ test: $(NAME)
 	@echo ""
 	@./$(NAME) .test/working.cub
 
-.PHONY: all re fclean clean test
+.PHONY: all re fclean clean test download
+
+# download:
+# 	git clone https://github.com/mackron/miniaudio .miniaudio
+# 	git clone https://github.com/codam-coding-college/MLX42.git .MLX42
+
+# download:
+# 	@if [ ! -d ".miniaudio" ]; then \
+# 		git clone https://github.com/mackron/miniaudio .miniaudio; \
+# 	else \
+# 		echo "miniaudio already installed"; \
+# 	fi
+# 	@if [ ! -d ".MLX42" ]; then \
+# 		git clone https://github.com/codam-coding-college/MLX42.git .MLX42; \
+# 	else \
+# 		echo "MLX42 already installed"; \
+# 	fi
