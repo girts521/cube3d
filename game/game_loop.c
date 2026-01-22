@@ -100,6 +100,22 @@ static void	cam_height_transition (t_data *data)
 		data->cam_height = data->target_height;
 }
 
+void	animate(t_data *data)
+{
+	static int			current_frame = -1;
+	double				now;
+
+	now = mlx_get_time();
+	if (now - data->last_anim_time > 0.2)
+	{
+		current_frame++;
+		if (current_frame >= N_ANIM_TEXTURES)
+			current_frame = 0;
+		data->img[EA] = data->anim_img[EA][current_frame];
+		data->last_anim_time = now;
+	}
+}
+
 void	game_loop(void *param)
 {
 	t_data	*data;
@@ -110,6 +126,7 @@ void	game_loop(void *param)
 	movement(data);
 	cam_height_transition(data);
 	head_bob(data);
+	animate(data);
 	raycasting(data);
 	//fps();
 }

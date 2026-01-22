@@ -17,6 +17,7 @@
 # define F_C_TEXTURE 1
 
 # define N_TEXTURES 6
+# define N_ANIM_TEXTURES 3
 
 # define TINT_FACTOR 0.8f
 
@@ -98,9 +99,11 @@ typedef struct s_data
 	mlx_t		*mlx;
 	ma_engine	audio_engine;
 	mlx_image_t	*img[N_TEXTURES];
+	mlx_image_t	*anim_img[N_TEXTURES][N_ANIM_TEXTURES];
 	mlx_image_t	*screen;
 	int			floor[3];
 	int			ceiling[3];
+	double		last_anim_time;
 	t_map		map;
 	double		player[3];
 	double		dir_x;

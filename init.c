@@ -1,0 +1,77 @@
+#include "cub3d.h"
+
+void	init_floor_ceiling(t_data *data)
+{
+	mlx_texture_t	*t;
+
+	t = mlx_load_png("textures/main/C.png");
+	if (!t)
+		clean(data, "load_png failed\n", 1, -1);
+	data->img[C] = mlx_texture_to_image(data->mlx, t);
+	if (!data->img[C])
+	{
+		mlx_delete_texture(t);
+		clean(data, "load ceiling failed\n", 1, -1);
+	}
+	mlx_delete_texture(t);
+	t = mlx_load_png("textures/main/F8.png");
+	if (!t)
+		clean(data, "load_png failed\n", 1, -1);
+	data->img[F] = mlx_texture_to_image(data->mlx, t);
+	if (!data->img[F])
+	{
+		mlx_delete_texture(t);
+		clean(data, "load floor failed\n", 1, -1);
+	}
+	mlx_delete_texture(t);
+}
+
+static void	append_int(char *buf, int *idx, int n)
+{
+	if (n > 9)
+		append_int(buf, idx, n / 10);
+	buf[*idx] = (n % 10) + '0';
+	(*idx)++;
+}
+
+static void	form_path(char *path, int folder, int file_name, char *buf)
+{
+	int	i;
+	int	len;
+
+	i = -1;
+	len = ft_strlen(path);
+	while (++i < len)
+		buf[i] = path[i];
+	append_int(buf, &i, folder);
+	buf[i++] = '/';
+	append_int(buf, &i, file_name);
+	buf[i++] = '.';
+	buf[i++] = 'p';
+	buf[i++] = 'n';
+	buf[i++] = 'g';
+	buf[i] = '\0';
+}
+
+void	init_anim_textures(t_data *data, int img_id)
+{
+	mlx_texture_t	*t;
+	int				i;
+	char			buf[100];
+
+	i = -1;
+	while (++i < N_ANIM_TEXTURES)
+	{
+		form_path("textures/main/anim/", img_id, i, buf);
+		t = mlx_load_png(buf);
+		if (!t)
+			clean(data, "load_png failed\n", 1, -1);
+		data->anim_img[img_id][i] = mlx_texture_to_image(data->mlx, t);
+		if (!data->anim_img[img_id][i])
+		{
+			mlx_delete_texture(t);
+			clean(data, "load anim failed\n", 1, -1);
+		}
+		mlx_delete_texture(t);
+	}
+}

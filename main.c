@@ -2,6 +2,8 @@
 
 void	game_loop(void *param);
 void	key_handler(mlx_key_data_t keydata, void *param);
+void	init_floor_ceiling(t_data *data);
+void	init_anim_textures(t_data *data, int img_id);
 
 static void	init_data(t_data *data)
 {
@@ -24,6 +26,7 @@ static void	init_data(t_data *data)
 	data->target_height = 0.5;
 	data->cam_speed_up = CAM_POS_SPEED;
 	data->cam_speed_down = CAM_POS_SPEED;
+	data->last_anim_time = mlx_get_time();
 	i = -1;
 	while (++i < N_TEXTURES)
 		data->img[i] = NULL;
@@ -33,31 +36,6 @@ static void	init_data(t_data *data)
 		data->floor[i] = 0;
 		data->ceiling[i] = 0;
 	}
-}
-
-static void	init_floor_ceiling(t_data *data)
-{
-	mlx_texture_t	*t;
-
-	t = mlx_load_png("textures/main/C.png");
-	if (!t)
-		clean(data, "load_png failed\n", 1, -1);
-	data->img[C] = mlx_texture_to_image(data->mlx, t);
-	if (!data->img[C])
-	{
-		mlx_delete_texture(t);
-		clean(data, "load ceiling failed\n", 1, -1);
-	}
-	t = mlx_load_png("textures/main/F8.png");
-	if (!t)
-		clean(data, "load_png failed\n", 1, -1);
-	data->img[F] = mlx_texture_to_image(data->mlx, t);
-	if (!data->img[F])
-	{
-		mlx_delete_texture(t);
-		clean(data, "load floor failed\n", 1, -1);
-	}
-	mlx_delete_texture(t);
 }
 
 static void	cross_handler(void *ptr)
@@ -85,6 +63,8 @@ int	main(int argc, char *argv[])
 	if (F_C_TEXTURE)
 		init_floor_ceiling(&data);
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
+
+	init_anim_textures(&data, EA);
 
 	// print map
 	printf("height: %d, width: %d\n", data.map.height, data.map.width);
