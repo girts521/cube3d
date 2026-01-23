@@ -106,7 +106,7 @@ void	animate(t_data *data)
 	double				now;
 
 	now = mlx_get_time();
-	if (now - data->last_anim_time > 0.2)
+	if (now - data->last_anim_time > 0.11)
 	{
 		current_frame++;
 		if (current_frame >= N_ANIM_TEXTURES)

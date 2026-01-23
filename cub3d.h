@@ -17,7 +17,7 @@
 # define F_C_TEXTURE 1
 
 # define N_TEXTURES 6
-# define N_ANIM_TEXTURES 3
+# define N_ANIM_TEXTURES 25
 
 # define TINT_FACTOR 0.8f
 
