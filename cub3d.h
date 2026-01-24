@@ -124,6 +124,10 @@ typedef struct s_data
 	double		cam_speed_up;
 	double		cam_speed_down;
 	double		dt;
+	ma_sound	sound_music;
+	ma_sound	sound_walk;
+	ma_sound	sound_dodge;
+	ma_sound	sound_jump;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);

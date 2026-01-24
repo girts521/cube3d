@@ -18,13 +18,13 @@ static void	attempt_move(t_data *data, double move_x, double move_y)
 
 static void	sprint(t_data *data)
 {
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT) && data->crouch != 1)
 	{
 		data->move_mult += 0.01;
 		if (data->move_mult > MAX_SPEED)
 			data->move_mult = MAX_SPEED;
 	}
-	else
+	else if (data->move_mult > 1.0)
 	{
 		data->move_mult -= 0.04;
 		if (data->move_mult < 1.0)

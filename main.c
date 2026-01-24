@@ -4,6 +4,7 @@ void	game_loop(void *param);
 void	key_handler(mlx_key_data_t keydata, void *param);
 void	init_floor_ceiling(t_data *data);
 void	init_anim_textures(t_data *data, int img_id);
+void	init_audio(t_data *data);
 
 static void	init_data(t_data *data)
 {
@@ -56,8 +57,9 @@ int	main(int argc, char *argv[])
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 	if (!data.mlx)
 		return (1);
-	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN); // Still appears on my end??
-	mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	init_audio(&data);
+	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
+	//mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	parse_input(&data, argv);
 	if (F_C_TEXTURE)
@@ -81,16 +83,6 @@ int	main(int argc, char *argv[])
 	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[1], data.player[0], data.player[2]);
 	printf("\nF: %d, %d, %d \nC: %d, %d, %d\n", data.floor[0], data.floor[1], data.floor[2],
 			data.ceiling[0], data.ceiling[1], data.ceiling[2]);
-
-
-	int	r;
-	if ((r = ma_engine_init(NULL, &data.audio_engine)) != MA_SUCCESS)
-	{
-		printf("%d\n", r);
-		clean(&data, "miniaudio init failed\n", 1, -1);
-	}
-	// Play background music (looping)
-	ma_engine_play_sound(&data.audio_engine, "audio/test.wav", NULL);
 
 
 	mlx_loop_hook(data.mlx, game_loop, &data);

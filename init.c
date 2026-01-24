@@ -75,3 +75,26 @@ void	init_anim_textures(t_data *data, int img_id)
 		mlx_delete_texture(t);
 	}
 }
+
+void	init_audio(t_data *data)
+{
+	if (ma_engine_init(NULL, &data->audio_engine) != MA_SUCCESS)
+		clean(data, "miniaudio init failed\n", 1, -1);
+	ma_sound_init_from_file(&data->audio_engine, "audio/elmshore.flac", 0,
+		NULL, NULL, &data->sound_music);
+	ma_sound_set_volume(&data->sound_music, 0.4f);
+	ma_sound_set_looping(&data->sound_music, MA_TRUE);
+	ma_sound_start(&data->sound_music);
+	ma_sound_init_from_file(&data->audio_engine, "audio/walking.mp3",
+		0, NULL, NULL, &data->sound_walk);
+	ma_sound_set_looping(&data->sound_walk, MA_TRUE);
+	ma_sound_set_volume(&data->sound_walk, 4.5f);
+	ma_sound_init_from_file(&data->audio_engine, "audio/dodge.mp3",
+		0, NULL, NULL, &data->sound_dodge);
+	ma_sound_set_looping(&data->sound_dodge, MA_FALSE);
+	ma_sound_set_volume(&data->sound_dodge, 0.6f);
+	ma_sound_init_from_file(&data->audio_engine, "audio/jump.mp3",
+		0, NULL, NULL, &data->sound_jump);
+	ma_sound_set_looping(&data->sound_jump, MA_FALSE);
+	ma_sound_set_volume(&data->sound_jump, 0.25f);
+}

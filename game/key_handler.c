@@ -6,12 +6,12 @@ static void	crouch(t_data *data)
 	if (data->crouch == 1)
 	{
 		data->target_height = 0.3;
-		data->speed /= 2.5;
+		data->move_mult = 0.4;
 	}
 	else
 	{
 		data->target_height = 0.5;
-		data->speed = MOVE_SPEED;
+		data->move_mult = 1.0;
 	}
 }
 
@@ -19,6 +19,8 @@ static void	dodge(t_data *data)
 {
 	if (!data->dodge && !data->dodge_timer)
 	{
+		//if (!ma_sound_is_playing(&data->sound_dodge))
+		ma_sound_start(&data->sound_dodge);
 		data->dodge = 1;
 		data->dodge_timer = 60;
 		data->move_mult += 4.5;
@@ -34,6 +36,8 @@ static void	jump(t_data *data)
 {
 	if (!data->jump)
 	{
+		//if (!ma_sound_is_playing(&data->sound_jump))
+		ma_sound_start(&data->sound_jump);
 		data->jump = 1;
 		data->target_height = data->cam_height + 0.45;
 		data->cam_speed_up = 0.03;

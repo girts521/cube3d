@@ -2,6 +2,7 @@
 
 void	rotation(t_data *data);
 void	movement(t_data *data);
+void	audio(t_data *data);
 
 // static void	fps(void)
 // {
@@ -121,6 +122,7 @@ void	game_loop(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
+	audio(data);
 	track_time(data);
 	rotation(data);
 	movement(data);
@@ -130,3 +132,4 @@ void	game_loop(void *param)
 	raycasting(data);
 	//fps();
 }
+//printf("speed: %f, move_mult: %f\n", data->speed, data->move_mult);
