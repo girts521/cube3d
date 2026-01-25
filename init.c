@@ -104,9 +104,9 @@ void	init_hud(t_data *data)
 	mlx_texture_t	*t;
 
 	data->hud.bar_x_start = WIN_WIDTH * 0.68;
-	data->hud.bar_y_start = WIN_HEIGHT * 0.90;
+	data->hud.bar_y_start = WIN_HEIGHT * 0.94;
 	data->hud.bar_total_w = WIN_WIDTH * 0.30;
-	data->hud.bar_h = WIN_HEIGHT * 0.05;
+	data->hud.bar_h = WIN_HEIGHT * 0.04;
 	t = mlx_load_png("textures/main/s_bar.png");
 	if (!t)
 		clean(data, "load_png failed\n", 1, -1);
