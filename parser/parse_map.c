@@ -7,7 +7,7 @@ static int	check_elements_presence(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < N_TEXTURES - 2)
+	while (++i < 4)
 	{
 		if (data->img[i] == NULL)
 			return (1);
@@ -75,7 +75,7 @@ void	parse_map(char *line, t_data *data, int fd)
 	if (check_elements_presence(data))
 	{
 		free(line);
-		clean(data, "Invalid map symbol\n", 1, fd);
+		clean(data, "Missing Element\n", 1, fd);
 	}
 	map_dimensions(line, data, fd);
 	free(line);

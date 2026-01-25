@@ -16,7 +16,7 @@
 
 # define F_C_TEXTURE 1
 
-# define N_TEXTURES 6
+# define N_TEXTURES 7
 # define N_ANIM_TEXTURES 25
 
 # define TINT_FACTOR 0.8f
@@ -40,7 +40,8 @@ typedef enum texture
 	WE,
 	EA,
 	F,
-	C
+	C,
+	S_BAR
 }	t_texture;
 
 typedef struct s_raycasting
@@ -87,6 +88,16 @@ typedef struct s_wall_hit
 	double	y;
 }	t_wall_hit;
 
+typedef struct s_hud
+{
+	int	bar_x_start;
+	int	bar_y_start;
+	int	bar_total_w;
+	int	bar_h;
+	int	draw_width;
+}	t_hud;
+
+
 typedef struct s_map
 {
 	char	**grid;
@@ -105,12 +116,14 @@ typedef struct s_data
 	int			ceiling[3];
 	double		last_anim_time;
 	t_map		map;
+	t_hud		hud;
 	double		player[3];
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
 	double		speed;
+	double		stamina;
 	int			crouch;
 	int			dodge;
 	int			jump;

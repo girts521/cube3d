@@ -3,6 +3,7 @@
 void	rotation(t_data *data);
 void	movement(t_data *data);
 void	audio(t_data *data);
+void	hud(t_data *data);
 
 // static void	fps(void)
 // {
@@ -130,6 +131,7 @@ void	game_loop(void *param)
 	head_bob(data);
 	animate(data);
 	raycasting(data);
+	hud(data);
 	//fps();
 }
 //printf("speed: %f, move_mult: %f\n", data->speed, data->move_mult);

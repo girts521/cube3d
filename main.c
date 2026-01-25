@@ -5,6 +5,7 @@ void	key_handler(mlx_key_data_t keydata, void *param);
 void	init_floor_ceiling(t_data *data);
 void	init_anim_textures(t_data *data, int img_id);
 void	init_audio(t_data *data);
+void	init_hud(t_data *data);
 
 static void	init_data(t_data *data)
 {
@@ -18,6 +19,7 @@ static void	init_data(t_data *data)
 	data->map.width = 0;
 	data->map.grid = NULL;
 	data->speed = MOVE_SPEED;
+	data->stamina = 1.00;
 	data->crouch = -1;
 	data->dodge = 0;
 	data->jump = 0;
@@ -58,6 +60,7 @@ int	main(int argc, char *argv[])
 	if (!data.mlx)
 		return (1);
 	init_audio(&data);
+	init_hud(&data);
 	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
 	//mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);

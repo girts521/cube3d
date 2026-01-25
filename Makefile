@@ -13,6 +13,7 @@ SRC = main.c \
 		game/movement.c \
 		game/rotation.c \
 		game/key_handler.c \
+		game/hud.c \
 		game/audio.c \
 		parser/parse_input.c \
 		parser/parse_map.c \
