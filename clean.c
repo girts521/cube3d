@@ -18,17 +18,11 @@ static void	clean_anim(t_data *data, int idx)
 {
 	int	i;
 
-	if (data->anim_img[idx][0] != NULL)
+	i = -1;
+	while (++i < N_ANIM_TEXTURES)
 	{
-		i = -1;
-		while (++i < N_ANIM_TEXTURES)
-		{
-			if (i != data->current_anim_frame)
-			{
-				mlx_delete_image(data->mlx, data->anim_img[idx][i]);
-				data->anim_img[idx][i] = NULL;
-			}
-		}
+		mlx_delete_texture(data->anim_img[idx][i]);
+		data->anim_img[idx][i] = NULL;
 	}
 }
 
@@ -39,9 +33,13 @@ static void	clean_mlx(t_data *data)
 	i = -1;
 	while (++i < N_TEXTURES && data->img[i] != NULL)
 	{
-		mlx_delete_image(data->mlx, data->img[i]);
-		data->img[i] = NULL;
-		clean_anim(data, i);
+		if (data->anim_img[i][0] == NULL) // skip anim texture
+		{
+			mlx_delete_texture(data->img[i]);
+			data->img[i] = NULL;
+		}
+		else
+			clean_anim(data, i);
 	}
 	if (data->mlx != NULL)
 	{

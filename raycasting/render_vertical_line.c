@@ -4,7 +4,7 @@ uint32_t	apply_color_tint(uint32_t color, double factor);
 void		put_pixel(mlx_image_t *image, uint32_t x, uint32_t y,
 				uint32_t color);
 
-uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
+uint32_t	get_texture_pixel(mlx_texture_t *tex, int x, int y)
 {
 	int	index;
 
@@ -17,7 +17,7 @@ uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y)
 		| (tex->pixels[index + 3]));
 }
 
-static mlx_image_t	*get_wall_texture(t_data *data, t_raycasting *ray)
+static mlx_texture_t	*get_wall_texture(t_data *data, t_raycasting *ray)
 {
 	if (ray->side == 0)
 	{
@@ -30,7 +30,7 @@ static mlx_image_t	*get_wall_texture(t_data *data, t_raycasting *ray)
 	return (data->img[SO]);
 }
 
-static int	calculate_tex_x(t_raycasting *ray, mlx_image_t *tex)
+static int	calculate_tex_x(t_raycasting *ray, mlx_texture_t *tex)
 {
 	double	wall_x;
 	int		tex_x;
@@ -71,8 +71,8 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 
 void	render_vertical_line(int x, t_raycasting *ray, t_data *data)
 {
-	mlx_image_t	*tex;
-	int			tex_x;
+	mlx_texture_t	*tex;
+	int				tex_x;
 
 	if (ray->map_x < 0 || ray->map_x >= data->map.width
 		|| ray->map_y < 0 || ray->map_y >= data->map.height)

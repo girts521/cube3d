@@ -58,7 +58,10 @@ int	main(int argc, char *argv[])
 	t_data	data;
 
 	if (argc != 2)
-		return (clean(NULL, "Wrong num of args\n", 1, -1));
+	{
+		printf("\nError\nWrong num of args\n");
+		return (1);
+	}
 	init_data(&data);
 	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 	if (!data.mlx)

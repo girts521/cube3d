@@ -74,12 +74,12 @@ typedef struct s_raycasting
 
 typedef struct s_stripe
 {
-	mlx_image_t	*tex;
-	double		step;
-	double		tex_pos;
-	int			tex_y;
-	int			y;
-	uint32_t	color;
+	mlx_texture_t	*tex;
+	double			step;
+	double			tex_pos;
+	int				tex_y;
+	int				y;
+	uint32_t		color;
 }	t_stripe;
 
 typedef struct s_wall_hit
@@ -109,8 +109,8 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	ma_engine	audio_engine;
-	mlx_image_t	*img[N_TEXTURES];
-	mlx_image_t	*anim_img[N_TEXTURES][N_ANIM_TEXTURES];
+	mlx_texture_t	*img[N_TEXTURES];
+	mlx_texture_t	*anim_img[N_TEXTURES][N_ANIM_TEXTURES];
 	mlx_image_t	*screen;
 	int			floor[3];
 	int			ceiling[3];

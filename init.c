@@ -2,28 +2,12 @@
 
 void	init_floor_ceiling(t_data *data)
 {
-	mlx_texture_t	*t;
-
-	t = mlx_load_png("textures/main/C.png");
-	if (!t)
-		clean(data, "load_png failed\n", 1, -1);
-	data->img[C] = mlx_texture_to_image(data->mlx, t);
+	data->img[C] = mlx_load_png("textures/main/C.png");
 	if (!data->img[C])
-	{
-		mlx_delete_texture(t);
 		clean(data, "load ceiling failed\n", 1, -1);
-	}
-	mlx_delete_texture(t);
-	t = mlx_load_png("textures/main/F8.png");
-	if (!t)
-		clean(data, "load_png failed\n", 1, -1);
-	data->img[F] = mlx_texture_to_image(data->mlx, t);
+	data->img[F] = mlx_load_png("textures/main/F8.png");;
 	if (!data->img[F])
-	{
-		mlx_delete_texture(t);
 		clean(data, "load floor failed\n", 1, -1);
-	}
-	mlx_delete_texture(t);
 }
 
 static void	append_int(char *buf, int *idx, int n)
@@ -55,7 +39,6 @@ static void	form_path(char *path, int folder, int file_name, char *buf)
 
 void	init_anim_textures(t_data *data, int img_id)
 {
-	mlx_texture_t	*t;
 	int				i;
 	char			buf[100];
 
@@ -63,18 +46,11 @@ void	init_anim_textures(t_data *data, int img_id)
 	while (++i < N_ANIM_TEXTURES)
 	{
 		form_path("textures/main/anim/", img_id, i, buf);
-		t = mlx_load_png(buf);
-		if (!t)
-			clean(data, "load_png failed\n", 1, -1);
-		data->anim_img[img_id][i] = mlx_texture_to_image(data->mlx, t);
+		data->anim_img[img_id][i] = mlx_load_png(buf);
 		if (!data->anim_img[img_id][i])
-		{
-			mlx_delete_texture(t);
 			clean(data, "load anim failed\n", 1, -1);
-		}
-		mlx_delete_texture(t);
 	}
-	mlx_delete_image(data->mlx, data->img[img_id]);
+	mlx_delete_texture(data->img[img_id]);
 	data->img[img_id] = data->anim_img[img_id][0];
 }
 
@@ -103,15 +79,11 @@ void	init_audio(t_data *data)
 
 void	init_hud(t_data *data)
 {
-	mlx_texture_t	*t;
-
 	data->hud.bar_x_start = WIN_WIDTH * 0.68;
 	data->hud.bar_y_start = WIN_HEIGHT * 0.94;
 	data->hud.bar_total_w = WIN_WIDTH * 0.30;
 	data->hud.bar_h = WIN_HEIGHT * 0.04;
-	t = mlx_load_png("textures/main/s_bar.png");
-	if (!t)
-		clean(data, "load_png failed\n", 1, -1);
-	data->img[S_BAR] = mlx_texture_to_image(data->mlx, t);
-	mlx_delete_texture(t);
+	data->img[S_BAR] = mlx_load_png("textures/main/s_bar.png");
+	if (!data->img[S_BAR])
+		clean(data, "load s_bar failed\n", 1, -1);
 }

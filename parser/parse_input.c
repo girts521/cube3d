@@ -8,25 +8,13 @@ int		add_rgb(const char *str, int *rgb, t_data *data);
 
 static int	add_element(char *line, int element, t_data *data)
 {
-	mlx_texture_t	*t;
-
 	while (*line == ' ')
 		line++;
-	t = mlx_load_png(line);
-	if (!t)
-		return (1);
 	if (data->img[element] != NULL)
-	{
-		mlx_delete_texture(t);
 		return (1);
-	}
-	data->img[element] = mlx_texture_to_image(data->mlx, t);
+	data->img[element] = mlx_load_png(line);
 	if (!data->img[element])
-	{
-		mlx_delete_texture(t);
 		return (1);
-	}
-	mlx_delete_texture(t);
 	return (0);
 }
 

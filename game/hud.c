@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y);
+uint32_t	get_texture_pixel(mlx_texture_t *tex, int x, int y);
 void		put_pixel(mlx_image_t *image, uint32_t x,
 				uint32_t y, uint32_t color);
 
