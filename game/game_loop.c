@@ -104,17 +104,16 @@ static void	cam_height_transition (t_data *data)
 
 void	animate(t_data *data)
 {
-	static int			current_frame = -1;
-	double				now;
+	double	now;
 
 	now = mlx_get_time();
 	if (now - data->last_anim_time > 0.11)
 	{
-		current_frame++;
-		if (current_frame >= N_ANIM_TEXTURES)
-			current_frame = 0;
-		data->img[EA] = data->anim_img[EA][current_frame];
-		//data->img[S_BAR] = data->anim_img[S_BAR][current_frame];
+		data->current_anim_frame ++;
+		if (data->current_anim_frame >= N_ANIM_TEXTURES)
+			data->current_anim_frame = 0;
+		data->img[EA] = data->anim_img[EA][data->current_anim_frame];
+		//data->img[S_BAR] = data->anim_img[S_BAR][data->current_anim_frame];
 		data->last_anim_time = now;
 	}
 }

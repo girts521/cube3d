@@ -23,8 +23,11 @@ static void	clean_anim(t_data *data, int idx)
 		i = -1;
 		while (++i < N_ANIM_TEXTURES)
 		{
-			mlx_delete_image(data->mlx, data->anim_img[idx][i]);
-			data->anim_img[idx][i] = NULL;
+			if (i != data->current_anim_frame)
+			{
+				mlx_delete_image(data->mlx, data->anim_img[idx][i]);
+				data->anim_img[idx][i] = NULL;
+			}
 		}
 	}
 }

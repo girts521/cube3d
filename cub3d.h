@@ -137,6 +137,7 @@ typedef struct s_data
 	double		cam_speed_up;
 	double		cam_speed_down;
 	double		dt;
+	int			current_anim_frame;
 	ma_sound	sound_music;
 	ma_sound	sound_walk;
 	ma_sound	sound_dodge;

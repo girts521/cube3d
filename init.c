@@ -74,6 +74,8 @@ void	init_anim_textures(t_data *data, int img_id)
 		}
 		mlx_delete_texture(t);
 	}
+	mlx_delete_image(data->mlx, data->img[img_id]);
+	data->img[img_id] = data->anim_img[img_id][0];
 }
 
 void	init_audio(t_data *data)

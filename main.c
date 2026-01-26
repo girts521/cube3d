@@ -30,6 +30,7 @@ static void	init_data(t_data *data)
 	data->cam_speed_up = CAM_POS_SPEED;
 	data->cam_speed_down = CAM_POS_SPEED;
 	data->last_anim_time = mlx_get_time();
+	data->current_anim_frame = -1;
 	i = -1;
 	while (++i < N_TEXTURES)
 	{
