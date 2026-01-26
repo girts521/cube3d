@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
 
 	init_anim_textures(&data, EA);
-	//init_anim_textures(&data, S_BAR);
+	init_anim_textures(&data, S_BAR);
 
 
 	mlx_loop_hook(data.mlx, game_loop, &data);

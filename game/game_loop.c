@@ -113,7 +113,7 @@ void	animate(t_data *data)
 		if (data->current_anim_frame >= N_ANIM_TEXTURES)
 			data->current_anim_frame = 0;
 		data->img[EA] = data->anim_img[EA][data->current_anim_frame];
-		//data->img[S_BAR] = data->anim_img[S_BAR][data->current_anim_frame];
+		data->img[S_BAR] = data->anim_img[S_BAR][data->current_anim_frame];
 		data->last_anim_time = now;
 	}
 }
