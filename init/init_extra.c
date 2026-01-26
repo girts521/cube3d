@@ -1,14 +1,4 @@
-#include "cub3d.h"
-
-void	init_floor_ceiling(t_data *data)
-{
-	data->img[C] = mlx_load_png("textures/main/C.png");
-	if (!data->img[C])
-		clean(data, "load ceiling failed\n", 1, -1);
-	data->img[F] = mlx_load_png("textures/main/F8.png");;
-	if (!data->img[F])
-		clean(data, "load floor failed\n", 1, -1);
-}
+#include "../cub3d.h"
 
 static void	append_int(char *buf, int *idx, int n)
 {

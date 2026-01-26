@@ -8,7 +8,8 @@ AUDIO_DIR = .miniaudio
 
 SRC = main.c \
 		clean.c \
-		init.c \
+		init/init.c \
+		init/init_extra.c \
 		game/game_loop.c \
 		game/movement.c \
 		game/rotation.c \
