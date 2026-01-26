@@ -114,6 +114,7 @@ void	animate(t_data *data)
 		if (current_frame >= N_ANIM_TEXTURES)
 			current_frame = 0;
 		data->img[EA] = data->anim_img[EA][current_frame];
+		//data->img[S_BAR] = data->anim_img[S_BAR][current_frame];
 		data->last_anim_time = now;
 	}
 }

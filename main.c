@@ -32,7 +32,10 @@ static void	init_data(t_data *data)
 	data->last_anim_time = mlx_get_time();
 	i = -1;
 	while (++i < N_TEXTURES)
+	{
 		data->img[i] = NULL;
+		data->anim_img[i][0] = NULL;
+	}
 	i = -1;
 	while (++i < 3)
 	{
@@ -70,6 +73,7 @@ int	main(int argc, char *argv[])
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
 
 	init_anim_textures(&data, EA);
+	//init_anim_textures(&data, S_BAR);
 
 	// print map
 	printf("height: %d, width: %d\n", data.map.height, data.map.width);

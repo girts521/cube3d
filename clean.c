@@ -14,6 +14,21 @@ static void	clean_grid(t_map *map)
 	map->grid = NULL;
 }
 
+static void	clean_anim(t_data *data, int idx)
+{
+	int	i;
+
+	if (data->anim_img[idx][0] != NULL)
+	{
+		i = -1;
+		while (++i < N_ANIM_TEXTURES)
+		{
+			mlx_delete_image(data->mlx, data->anim_img[idx][i]);
+			data->anim_img[idx][i] = NULL;
+		}
+	}
+}
+
 static void	clean_mlx(t_data *data)
 {
 	int	i;
@@ -23,6 +38,7 @@ static void	clean_mlx(t_data *data)
 	{
 		mlx_delete_image(data->mlx, data->img[i]);
 		data->img[i] = NULL;
+		clean_anim(data, i);
 	}
 	if (data->mlx != NULL)
 	{

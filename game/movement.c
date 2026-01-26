@@ -24,7 +24,7 @@ static void	sprint(t_data *data)
 		data->stamina -= 0.01;
 		if (data->stamina < 0.0)
 			data->stamina = 0.0;
-		data->move_mult += 0.01;
+		data->move_mult += 0.02;
 		if (data->move_mult > MAX_SPEED)
 			data->move_mult = MAX_SPEED;
 	}
