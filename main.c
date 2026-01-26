@@ -25,10 +25,10 @@ static void	init_data(t_data *data)
 	data->jump = 0;
 	data->move_mult = 1.0;
 	data->dodge_timer = 0;
-	data->cam_height = 0.5;
-	data->target_height = 0.5;
-	data->cam_speed_up = CAM_POS_SPEED;
-	data->cam_speed_down = CAM_POS_SPEED;
+	data->c.cam_height = 0.5;
+	data->c.target_height = 0.5;
+	data->c.cam_speed_up = CAM_POS_SPEED;
+	data->c.cam_speed_down = CAM_POS_SPEED;
 	data->last_anim_time = mlx_get_time();
 	data->current_anim_frame = -1;
 	i = -1;

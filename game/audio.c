@@ -14,17 +14,17 @@ void	audio(t_data *data)
 {
 	if (is_moving(data) && !data->dodge && !data->jump)
 	{
-		ma_sound_set_pitch(&data->sound_walk, (float)data->move_mult);
-		if (!ma_sound_is_playing(&data->sound_walk))
-			ma_sound_start(&data->sound_walk);
+		ma_sound_set_pitch(&data->s.walk, (float)data->move_mult);
+		if (!ma_sound_is_playing(&data->s.walk))
+			ma_sound_start(&data->s.walk);
 	}
 	else
 	{
-		if (ma_sound_is_playing(&data->sound_walk))
+		if (ma_sound_is_playing(&data->s.walk))
 		{
-			ma_sound_stop(&data->sound_walk);
-			ma_sound_set_pitch(&data->sound_walk, 1.0f);
-			ma_sound_seek_to_pcm_frame(&data->sound_walk, 0);
+			ma_sound_stop(&data->s.walk);
+			ma_sound_set_pitch(&data->s.walk, 1.0f);
+			ma_sound_seek_to_pcm_frame(&data->s.walk, 0);
 		}
 	}
 }

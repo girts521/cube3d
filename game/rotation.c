@@ -31,11 +31,11 @@ static void	handle_mouse(t_data *data)
 		rotate_player(data, delta_x * MOUSE_SENS);
 	if (delta_y != 0)
 	{
-		data->pitch += -delta_y * 1.0;
-		if (data->pitch > WIN_HEIGHT / 1.5)
-			data->pitch = WIN_HEIGHT / 1.5;
-		if (data->pitch < -WIN_HEIGHT / 1.5)
-			data->pitch = -WIN_HEIGHT / 1.5;
+		data->c.pitch += -delta_y * 1.0;
+		if (data->c.pitch > WIN_HEIGHT / 1.5)
+			data->c.pitch = WIN_HEIGHT / 1.5;
+		if (data->c.pitch < -WIN_HEIGHT / 1.5)
+			data->c.pitch = -WIN_HEIGHT / 1.5;
 	}
 	mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 }

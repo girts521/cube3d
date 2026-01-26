@@ -83,23 +83,23 @@ static void	head_bob(t_data *data)
 		|| mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
 		data->walk_timer += 0.1 * data->move_mult;
-		data->bob_pitch = sin(data->walk_timer) * HEAD_BOB;
+		data->c.bob_pitch = sin(data->walk_timer) * HEAD_BOB;
 	}
 	else
 	{
-		data->bob_pitch = 0;
+		data->c.bob_pitch = 0;
 		data->walk_timer = 0;
 	}
 }
 
 static void	cam_height_transition (t_data *data)
 {
-	if (data->cam_height < data->target_height)
-		data->cam_height += data->cam_speed_up;
-	else if (data->cam_height > data->target_height)
-		data->cam_height -= data->cam_speed_down;
-	if (fabs(data->cam_height - data->target_height) < CAM_POS_SPEED)
-		data->cam_height = data->target_height;
+	if (data->c.cam_height < data->c.target_height)
+		data->c.cam_height += data->c.cam_speed_up;
+	else if (data->c.cam_height > data->c.target_height)
+		data->c.cam_height -= data->c.cam_speed_down;
+	if (fabs(data->c.cam_height - data->c.target_height) < CAM_POS_SPEED)
+		data->c.cam_height = data->c.target_height;
 }
 
 void	animate(t_data *data)

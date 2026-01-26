@@ -10,7 +10,6 @@
 # include <sys/time.h>
 #include ".miniaudio/miniaudio.h"
 
-
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
 
@@ -44,50 +43,6 @@ typedef enum texture
 	S_BAR
 }	t_texture;
 
-typedef struct s_raycasting
-{
-	double	pos_x;
-	double	pos_y;
-	double	plane_x;
-	double	plane_y;
-	double	time;
-	double	old_time;
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	double	perp_wall_dist;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		color;
-	char	wall_type;
-}	t_raycasting;
-
-typedef struct s_stripe
-{
-	mlx_texture_t	*tex;
-	double			step;
-	double			tex_pos;
-	int				tex_y;
-	int				y;
-	uint32_t		color;
-}	t_stripe;
-
-typedef struct s_wall_hit
-{
-	double	x;
-	double	y;
-}	t_wall_hit;
-
 typedef struct s_hud
 {
 	int	bar_x_start;
@@ -97,7 +52,6 @@ typedef struct s_hud
 	int	draw_width;
 }	t_hud;
 
-
 typedef struct s_map
 {
 	char	**grid;
@@ -105,18 +59,34 @@ typedef struct s_map
 	int		width;
 }	t_map;
 
+typedef struct s_sound
+{
+	ma_engine	audio_engine;
+	ma_sound	music;
+	ma_sound	walk;
+	ma_sound	dodge;
+	ma_sound	jump;
+}	t_sound;
+
+typedef struct s_cam
+{
+	double		pitch;
+	double		bob_pitch;
+	double		cam_height;
+	double		target_height;
+	double		cam_speed_up;
+	double		cam_speed_down;
+}	t_cam;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	ma_engine	audio_engine;
 	mlx_texture_t	*img[N_TEXTURES];
 	mlx_texture_t	*anim_img[N_TEXTURES][N_ANIM_TEXTURES];
 	mlx_image_t	*screen;
 	int			floor[3];
 	int			ceiling[3];
 	double		last_anim_time;
-	t_map		map;
-	t_hud		hud;
 	double		player[3];
 	double		dir_x;
 	double		dir_y;
@@ -130,18 +100,12 @@ typedef struct s_data
 	double		move_mult;
 	int			dodge_timer;
 	double		walk_timer;
-	double		pitch;
-	double		bob_pitch;
-	double		cam_height;
-	double		target_height;
-	double		cam_speed_up;
-	double		cam_speed_down;
 	double		dt;
 	int			current_anim_frame;
-	ma_sound	sound_music;
-	ma_sound	sound_walk;
-	ma_sound	sound_dodge;
-	ma_sound	sound_jump;
+	t_map		map;
+	t_hud		hud;
+	t_sound		s;
+	t_cam		c;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);

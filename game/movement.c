@@ -45,7 +45,7 @@ static void	handle_dodge(t_data *data)
 	if (data->move_mult > MAX_SPEED)
 	{
 		data->move_mult -= 0.2;
-		data->bob_pitch = 0;
+		data->c.bob_pitch = 0;
 		data->walk_timer = 0;
 	}
 	else
@@ -54,8 +54,8 @@ static void	handle_dodge(t_data *data)
 		data->dodge_timer = 60;
 		if (data->crouch != 1 && data->jump == 0)
 		{
-			data->target_height = 0.5;
-			data->cam_speed_down = CAM_POS_SPEED;
+			data->c.target_height = 0.5;
+			data->c.cam_speed_down = CAM_POS_SPEED;
 		}
 	}
 }
@@ -64,19 +64,19 @@ static void	handle_jump(t_data *data)
 {
 	if (!data->jump)
 		return ;
-	if (data->cam_height == data->target_height)
+	if (data->c.cam_height == data->c.target_height)
 	{
 		if (data->crouch == 1)
-			data->target_height = 0.3;
+			data->c.target_height = 0.3;
 		else
-			data->target_height = 0.5;
+			data->c.target_height = 0.5;
 		data->jump = 2;
 	}
-	if (data->jump == 2 && data->cam_height == data->target_height)
+	if (data->jump == 2 && data->c.cam_height == data->c.target_height)
 	{
 		data->jump = 0;
-		data->cam_speed_down = CAM_POS_SPEED;
-		data->cam_speed_up = CAM_POS_SPEED;
+		data->c.cam_speed_down = CAM_POS_SPEED;
+		data->c.cam_speed_up = CAM_POS_SPEED;
 	}
 }
 
