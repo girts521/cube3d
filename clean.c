@@ -49,6 +49,15 @@ static void	clean_mlx(t_data *data)
 	data->mlx = NULL;
 }
 
+static void	cleanup_sounds(t_data *data, t_sound *s)
+{
+	ma_sound_uninit(&s->music);
+	ma_sound_uninit(&s->walk);
+	ma_sound_uninit(&s->dodge);
+	ma_sound_uninit(&s->jump);
+	ma_engine_uninit(&s->audio_engine);
+}
+
 int	clean(t_data *data, char *err_mess, int status, int fd)
 {
 	if (data)
@@ -60,6 +69,6 @@ int	clean(t_data *data, char *err_mess, int status, int fd)
 		printf("\nError\n%s", err_mess);
 	if (fd != -1)
 		close(fd);
-	ma_engine_uninit(&data->s.audio_engine);
+	cleanup_sounds(data, &data->s);
 	exit(status);
 }
