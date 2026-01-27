@@ -43,6 +43,8 @@ static void	draw_ceiling(t_data *data, t_raycasting *ray, t_wall_hit *hit,
 
 	y = 0;
 	tex = data->img[C];
+	if (ray->draw_start > WIN_HEIGHT)
+		ray->draw_start = WIN_HEIGHT;
 	while (y < ray->draw_start)
 	{
 		cur_dist = (WIN_HEIGHT * (1.0 - data->c.cam_height))

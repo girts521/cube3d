@@ -64,8 +64,8 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 		st.color = get_texture_pixel(st.tex, texX, st.tex_y);
 		if (ray->side == 1)
 			st.color = apply_color_tint(st.color, TINT_FACTOR);
-		if (st.y >= 0 && st.y < WIN_HEIGHT)
-			put_pixel(data->screen, x, st.y, st.color);
+		//if (st.y >= 0 && st.y < WIN_HEIGHT)
+		put_pixel(data->screen, x, st.y, st.color);
 		st.y++;
 	}
 }

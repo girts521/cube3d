@@ -23,6 +23,7 @@ static void	init_game_data(t_data *data)
 	data->c.target_height = 0.5;
 	data->c.cam_speed_up = CAM_POS_SPEED;
 	data->c.cam_speed_down = CAM_POS_SPEED;
+	data->c.pitch = 1.0;
 	data->last_anim_time = mlx_get_time();
 	data->current_anim_frame = -1;
 }

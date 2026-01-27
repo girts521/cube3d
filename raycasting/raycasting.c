@@ -60,7 +60,7 @@ void	calculate_ray(t_raycasting *ray, t_data *data)
 	ray->draw_end = (ray->line_height * data->c.cam_height)
 		+ WIN_HEIGHT / 2.0 + (data->c.bob_pitch + data->c.pitch);
 	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
+		ray->draw_end = WIN_HEIGHT;
 }
 
 void	raycasting(t_data *data)
