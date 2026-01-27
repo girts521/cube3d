@@ -21,7 +21,8 @@
 # define TINT_FACTOR 0.8f
 
 # define ROT_SPEED 0.05
-# define MOUSE_SENS 0.0005
+# define HOR_SENS 0.00002f
+# define VER_SENS 0.05
 # define MOVE_SPEED 0.03
 //# define MOVE_SPEED 1.8
 

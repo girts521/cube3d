@@ -69,10 +69,10 @@ void	init_audio(t_data *data)
 
 void	init_hud(t_data *data)
 {
-	data->hud.bar_x_start = WIN_WIDTH * 0.68;
+	data->hud.bar_x_start = WIN_WIDTH * 0.78;
 	data->hud.bar_y_start = WIN_HEIGHT * 0.94;
-	data->hud.bar_total_w = WIN_WIDTH * 0.30;
-	data->hud.bar_h = WIN_HEIGHT * 0.04;
+	data->hud.bar_total_w = WIN_WIDTH * 0.20;
+	data->hud.bar_h = WIN_HEIGHT * 0.05;
 	data->img[S_BAR] = mlx_load_png("textures/main/s_bar.png");
 	if (!data->img[S_BAR])
 		clean(data, "load s_bar failed\n", 1, -1);

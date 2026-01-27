@@ -28,10 +28,10 @@ static void	handle_mouse(t_data *data)
 	delta_x = x - (WIN_WIDTH / 2);
 	delta_y = y - (WIN_HEIGHT / 2);
 	if (delta_x != 0)
-		rotate_player(data, delta_x * MOUSE_SENS);
+		rotate_player(data, delta_x * HOR_SENS);
 	if (delta_y != 0)
 	{
-		data->c.pitch += -delta_y * 1.0;
+		data->c.pitch -= delta_y * VER_SENS;
 		if (data->c.pitch > WIN_HEIGHT / 1.5)
 			data->c.pitch = WIN_HEIGHT / 1.5;
 		if (data->c.pitch < -WIN_HEIGHT / 1.5)
