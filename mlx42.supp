@@ -40,3 +40,31 @@
     ...
     fun:_dl_open
 }
+{
+    <Fontconfig_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so*
+}
+{
+    <Expat_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libexpat.so*
+}
+{
+    <Pango_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libpango*
+}
+{
+    <Glib_Gobject_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libgobject*
+}

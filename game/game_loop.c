@@ -56,7 +56,7 @@ void track_time(t_data *data)
 	data->dt = seconds + (microseconds / 1000000.0);
 	if (data->dt > 0.1)
 	{
-		printf("LAG SPIKE DETECTED: dt was %.4f!\n", data->dt);
+		//printf("LAG SPIKE DETECTED: dt was %.4f!\n", data->dt);
 		data->dt = 0.1;
 	}
 

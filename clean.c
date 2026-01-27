@@ -43,6 +43,7 @@ static void	clean_mlx(t_data *data)
 	}
 	if (data->mlx != NULL)
 	{
+		mlx_delete_image(data->mlx, data->screen);
 		mlx_close_window(data->mlx);
 		mlx_terminate(data->mlx);
 	}

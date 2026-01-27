@@ -35,10 +35,11 @@ static int	set_width(char *line, t_data *data)
 	return (0);
 }
 
-static void	set_height(char *line, t_data *data, int fd)
+static void	set_height(t_data *data, int fd)
 {
 	char	malloc_failure;
 	int		i;
+	char	*line;
 
 	malloc_failure = 0;
 	i = 1;
@@ -48,7 +49,11 @@ static void	set_height(char *line, t_data *data, int fd)
 		if (malloc_failure)
 			clean(data, "failure inside gnl\n", 1, fd);
 		if (!line || *line == '\0')
-			break ;
+		{
+			if (line)
+				free(line);
+			break;
+		}
 		if (set_width(line, data))
 			clean(data, "Invalid map symbol\n", 1, fd);
 		free(line);
@@ -62,7 +67,7 @@ static void	map_dimensions(char *line, t_data *data, int fd)
 {
 	if (set_width(line, data))
 		clean(data, "Invalid map symbol\n", 1, fd);
-	set_height(line, data, fd);
+	set_height(data, fd);
 	if (check_trailing_lines(fd, data))
 	{
 		free(line);

@@ -81,7 +81,11 @@ test: $(NAME)
 	@echo ""
 	@./$(NAME) .test/working.cub
 
-.PHONY: all re fclean clean test download
+val: $(NAME)
+	@echo ""
+	@valgrind --leak-check=full --show-leak-kinds=definite --suppressions=mlx42.supp --track-origins=yes ./$(NAME) .test/working.cub
+
+.PHONY: all re fclean clean test val
 
 # download:
 # 	git clone https://github.com/mackron/miniaudio .miniaudio
