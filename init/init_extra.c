@@ -48,9 +48,9 @@ void	init_audio(t_data *data)
 {
 	if (ma_engine_init(NULL, &data->s.audio_engine) != MA_SUCCESS)
 		clean(data, "miniaudio init failed\n", 1, -1);
-	ma_sound_init_from_file(&data->s.audio_engine, "audio/elmshore.flac", 0,
+	ma_sound_init_from_file(&data->s.audio_engine, "audio/music.mp3", 0,
 		NULL, NULL, &data->s.music);
-	ma_sound_set_volume(&data->s.music, 0.4f);
+	ma_sound_set_volume(&data->s.music, 0.35f);
 	ma_sound_set_looping(&data->s.music, MA_TRUE);
 	ma_sound_start(&data->s.music);
 	ma_sound_init_from_file(&data->s.audio_engine, "audio/walking.mp3",
@@ -61,7 +61,7 @@ void	init_audio(t_data *data)
 		0, NULL, NULL, &data->s.dodge);
 	ma_sound_set_looping(&data->s.dodge, MA_FALSE);
 	ma_sound_set_volume(&data->s.dodge, 0.6f);
-	ma_sound_init_from_file(&data->s.audio_engine, "audio/jump.mp3",
+	ma_sound_init_from_file(&data->s.audio_engine, "audio/jump_2.mp3",
 		0, NULL, NULL, &data->s.jump);
 	ma_sound_set_looping(&data->s.jump, MA_FALSE);
 	ma_sound_set_volume(&data->s.jump, 0.25f);
