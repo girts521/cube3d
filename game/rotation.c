@@ -22,14 +22,22 @@ static void	handle_mouse(t_data *data)
 	int32_t	x;
 	int32_t	y;
 	int		delta_x;
+	int		delta_y;
 
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	delta_x = x - (WIN_WIDTH / 2);
+	delta_y = y - (WIN_HEIGHT / 2);
 	if (delta_x != 0)
+		rotate_player(data, delta_x * HOR_SENS);
+	if (delta_y != 0)
 	{
-		rotate_player(data, delta_x * MOUSE_SENS);
-		mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+		data->c.pitch -= delta_y * VER_SENS;
+		if (data->c.pitch > WIN_HEIGHT / 1.5)
+			data->c.pitch = WIN_HEIGHT / 1.5;
+		if (data->c.pitch < -WIN_HEIGHT / 1.5)
+			data->c.pitch = -WIN_HEIGHT / 1.5;
 	}
+	mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 }
 
 void	rotation(t_data *data)

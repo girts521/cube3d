@@ -11,6 +11,7 @@ static void	free_split(char **arr, t_data *data, char exit)
 		arr[i] = NULL;
 		++i;
 	}
+	free(arr);
 	if (exit)
 		clean(data, "invalid RGB values\n", 1, -1);
 }
@@ -53,7 +54,7 @@ int	add_rgb(const char *str, int *rgb, t_data *data)
 
 	while (*str == ' ')
 		str++;
-	colors = ft_split(str, ',');
+	colors = ft_split(str, ','); // line 56
 	if (!colors)
 		clean(data, "malloc failure inside ft_split", 1, -1);
 	i = 0;

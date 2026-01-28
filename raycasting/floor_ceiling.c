@@ -1,6 +1,7 @@
 #include "../cub3d.h"
+#include "raycasting.h"
 
-uint32_t	get_texture_pixel(mlx_image_t *tex, int x, int y);
+uint32_t	get_texture_pixel(mlx_texture_t *tex, int x, int y);
 void		put_pixel(mlx_image_t *image, uint32_t x, uint32_t y,
 				uint32_t color);
 
@@ -34,17 +35,20 @@ static void	compute_wall_intercept(t_raycasting *ray, t_wall_hit *hit)
 static void	draw_ceiling(t_data *data, t_raycasting *ray, t_wall_hit *hit,
 		int x)
 {
-	int			y;
-	double		weight;
-	double		cur_dist;
-	mlx_image_t	*tex;
-	uint32_t	color;
+	int				y;
+	double			weight;
+	double			cur_dist;
+	mlx_texture_t	*tex;
+	uint32_t		color;
 
 	y = 0;
 	tex = data->img[C];
+	if (ray->draw_start > WIN_HEIGHT)
+		ray->draw_start = WIN_HEIGHT;
 	while (y < ray->draw_start)
 	{
-		cur_dist = WIN_HEIGHT / (WIN_HEIGHT - 2.0 * y + 2 * data->pitch);
+		cur_dist = (WIN_HEIGHT * (1.0 - data->c.cam_height))
+			/ (WIN_HEIGHT / 2.0 + (data->c.bob_pitch + data->c.pitch) - y);
 		weight = cur_dist / ray->perp_wall_dist;
 		color = get_texture_pixel(tex, (int)((weight * hit->x + (1.0 - weight)
 						* ray->pos_x) * tex->width) % tex->width,
@@ -57,11 +61,11 @@ static void	draw_ceiling(t_data *data, t_raycasting *ray, t_wall_hit *hit,
 
 static void	draw_floor(t_data *data, t_raycasting *ray, t_wall_hit *hit, int x)
 {
-	int			y;
-	double		weight;
-	double		cur_dist;
-	mlx_image_t	*tex;
-	uint32_t	color;
+	int				y;
+	double			weight;
+	double			cur_dist;
+	mlx_texture_t	*tex;
+	uint32_t		color;
 
 	y = ray->draw_end;
 	if (y < 0)
@@ -69,7 +73,8 @@ static void	draw_floor(t_data *data, t_raycasting *ray, t_wall_hit *hit, int x)
 	tex = data->img[F];
 	while (y < WIN_HEIGHT)
 	{
-		cur_dist = WIN_HEIGHT / (2.0 * y - WIN_HEIGHT - 2 * data->pitch);
+		cur_dist = (WIN_HEIGHT * data->c.cam_height)
+			/ (y - WIN_HEIGHT / 2.0 - (data->c.bob_pitch + data->c.pitch));
 		weight = cur_dist / ray->perp_wall_dist;
 		color = get_texture_pixel(tex, (int)((weight * hit->x + (1.0 - weight)
 						* ray->pos_x) * tex->width) % tex->width,

@@ -16,6 +16,7 @@ int	check_trailing_lines(int fd, t_data *data)
 	int		i;
 
 	i = -1;
+	malloc_failure = 0;
 	while (1)
 	{
 		line = get_next_line(fd, &malloc_failure, 0);
