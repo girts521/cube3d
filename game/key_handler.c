@@ -17,11 +17,11 @@ static void	crouch(t_data *data)
 
 static void	dodge(t_data *data)
 {
-	if (!data->dodge && !data->dodge_timer && data->stamina >= 0.2)
+	if (!data->dodge && !data->dodge_timer && data->stamina >= 0.15)
 	{
 		//if (!ma_sound_is_playing(&data->sound_dodge))
 		ma_sound_start(&data->s.dodge);
-		data->stamina -= 0.2;
+		data->stamina -= 0.15;
 		data->dodge = 1;
 		data->dodge_timer = 60;
 		data->move_mult += 4.5;

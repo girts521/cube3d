@@ -19,9 +19,9 @@ static void	attempt_move(t_data *data, double move_x, double move_y)
 static void	sprint(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT) && data->crouch != 1
-		&& data->stamina >= 0.01)
+		&& data->stamina >= 0.007)
 	{
-		data->stamina -= 0.01;
+		data->stamina -= 0.007;
 		if (data->stamina < 0.0)
 			data->stamina = 0.0;
 		data->move_mult += 0.02;
@@ -42,7 +42,8 @@ static void	handle_dodge(t_data *data)
 		data->dodge_timer--;
 	if (!data->dodge)
 		return ;
-	if (data->move_mult > MAX_SPEED)
+	if (data->move_mult > MAX_SPEED
+		|| (data->crouch == 1 && data->move_mult > 0.4))
 	{
 		data->move_mult -= 0.2;
 		data->c.bob_pitch = 0;
