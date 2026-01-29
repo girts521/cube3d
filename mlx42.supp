@@ -1,0 +1,70 @@
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libnvidia*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libdbus*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libglfw*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libX11*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/dri*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libLLVM*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    fun:_dl_open
+}
+{
+    <Fontconfig_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so*
+}
+{
+    <Expat_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libexpat.so*
+}
+{
+    <Pango_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libpango*
+}
+{
+    <Glib_Gobject_Noise>
+    Memcheck:Leak
+    match-leak-kinds: definite,possible
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libgobject*
+}
