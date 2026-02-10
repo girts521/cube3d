@@ -31,11 +31,12 @@ static void	clean_mlx(t_data *data)
 	int	i;
 
 	i = -1;
-	while (++i < N_TEXTURES && data->img[i] != NULL)
+	while (++i < N_TEXTURES)
 	{
 		if (data->anim_img[i][0] == NULL)
 		{
-			mlx_delete_texture(data->img[i]);
+			if (data->img[i] != NULL)
+				mlx_delete_texture(data->img[i]);
 			data->img[i] = NULL;
 		}
 		else

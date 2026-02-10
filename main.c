@@ -18,15 +18,15 @@ static void	cross_handler(void *ptr)
 
 static void	setup_data(t_data *data, char *argv[])
 {
+	init_audio(data);
+	parse_input(data, argv);
 	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
 	if (!data->mlx)
-		exit(1);
-	init_audio(data);
+		clean(data, "mlx_init failed\n", 1, -1);
 	init_hud(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
 	data->screen = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
-	parse_input(data, argv);
 	init_anim_textures(data, EA);
 	init_anim_textures(data, S_BAR);
 	if (F_C_TEXTURE)

@@ -83,7 +83,7 @@ void	parse_input(t_data *data, char *argv[])
 	fd_len = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		clean(NULL, "Could not open file\n", 1, -1);
+		clean(data, "Could not open file\n", 1, -1);
 	while (1)
 	{
 		if (handle_line(data, fd, &fd_len))
