@@ -54,8 +54,9 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 
 	st.tex = get_wall_texture(data, ray);
 	st.step = 1.0 * st.tex->height / ray->line_height;
-	st.tex_pos = (ray->draw_start - (data->c.bob_pitch + data->c.pitch) - WIN_HEIGHT
-			/ 2 + ray->line_height * (1.0 - data->c.cam_height)) * st.step;
+	st.tex_pos = (ray->draw_start - (data->c.bob_pitch + data->c.pitch)
+			- WIN_HEIGHT / 2 + ray->line_height
+			* (1.0 - data->c.cam_height)) * st.step;
 	st.y = ray->draw_start;
 	while (st.y < ray->draw_end)
 	{
@@ -64,7 +65,6 @@ static void	draw_wall_stripe(t_data *data, t_raycasting *ray, int x, int texX)
 		st.color = get_texture_pixel(st.tex, texX, st.tex_y);
 		if (ray->side == 1)
 			st.color = apply_color_tint(st.color, TINT_FACTOR);
-		//if (st.y >= 0 && st.y < WIN_HEIGHT)
 		put_pixel(data->screen, x, st.y, st.color);
 		st.y++;
 	}

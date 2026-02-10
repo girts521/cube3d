@@ -54,7 +54,7 @@ int	add_rgb(const char *str, int *rgb, t_data *data)
 
 	while (*str == ' ')
 		str++;
-	colors = ft_split(str, ','); // line 56
+	colors = ft_split(str, ',');
 	if (!colors)
 		clean(data, "malloc failure inside ft_split", 1, -1);
 	i = 0;

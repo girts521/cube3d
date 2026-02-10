@@ -96,7 +96,6 @@ void	movement(t_data *data)
 	if (data->move_mult <= MAX_SPEED)
 		sprint(data);
 	speed = data->speed * data->move_mult;
-	//speed = (data->speed * data->move_mult) * data->dt;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		attempt_move(data, data->dir_x * speed,
 			data->dir_y * speed);

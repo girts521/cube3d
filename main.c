@@ -16,6 +16,23 @@ static void	cross_handler(void *ptr)
 	clean(data, NULL, 0, -1);
 }
 
+static void	setup_data(t_data *data, char *argv[])
+{
+	data->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
+	if (!data->mlx)
+		exit(1);
+	init_audio(data);
+	init_hud(data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+	data->screen = mlx_new_image(data->mlx, WIN_WIDTH, WIN_HEIGHT);
+	parse_input(data, argv);
+	init_anim_textures(data, EA);
+	init_anim_textures(data, S_BAR);
+	if (F_C_TEXTURE)
+		init_floor_ceiling(data);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -26,28 +43,12 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	init_data(&data);
-	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3d", true);
-	if (!data.mlx)
-		return (1);
-	init_audio(&data);
-	init_hud(&data);
-	mlx_set_cursor_mode(data.mlx, MLX_MOUSE_HIDDEN);
-	//mlx_set_mouse_pos(data.mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	data.screen = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
-	parse_input(&data, argv);
-	if (F_C_TEXTURE)
-		init_floor_ceiling(&data);
+	setup_data(&data, argv);
 	mlx_image_to_window(data.mlx, data.screen, 0, 0);
-
-	init_anim_textures(&data, EA);
-	init_anim_textures(&data, S_BAR);
-
-
 	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_close_hook(data.mlx, cross_handler, &data);
 	mlx_loop(data.mlx);
-
 	clean(&data, NULL, 0, -1);
 }
 
@@ -63,6 +64,8 @@ int	main(int argc, char *argv[])
 // 			printf("%c", data.map.grid[i][i2]);
 // 		printf("|");
 // 	}
-// 	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[1], data.player[0], data.player[2]);
-// 	printf("\nF: %d, %d, %d \nC: %d, %d, %d\n", data.floor[0], data.floor[1], data.floor[2],
+// 	printf("\n\nplayer: y=%f , x=%f , direction=%f\n", data.player[1],
+//		data.player[0], data.player[2]);
+// 	printf("\nF: %d, %d, %d \nC: %d, %d, %d\n", data.floor[0],
+//		data.floor[1], data.floor[2],
 // 			data.ceiling[0], data.ceiling[1], data.ceiling[2]);

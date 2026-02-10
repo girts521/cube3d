@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <sys/time.h>
-#include ".miniaudio/miniaudio.h"
+# include ".miniaudio/miniaudio.h"
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
@@ -81,32 +81,32 @@ typedef struct s_cam
 
 typedef struct s_data
 {
-	mlx_t		*mlx;
+	mlx_t			*mlx;
 	mlx_texture_t	*img[N_TEXTURES];
 	mlx_texture_t	*anim_img[N_TEXTURES][N_ANIM_TEXTURES];
-	mlx_image_t	*screen;
-	int			floor[3];
-	int			ceiling[3];
-	double		last_anim_time;
-	double		player[3];
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-	double		speed;
-	double		stamina;
-	int			crouch;
-	int			dodge;
-	int			jump;
-	double		move_mult;
-	int			dodge_timer;
-	double		walk_timer;
-	double		dt;
-	int			current_anim_frame;
-	t_map		map;
-	t_hud		hud;
-	t_sound		s;
-	t_cam		c;
+	mlx_image_t		*screen;
+	int				floor[3];
+	int				ceiling[3];
+	double			last_anim_time;
+	double			player[3];
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			speed;
+	double			stamina;
+	int				crouch;
+	int				dodge;
+	int				jump;
+	double			move_mult;
+	int				dodge_timer;
+	double			walk_timer;
+	double			dt;
+	int				current_anim_frame;
+	t_map			map;
+	t_hud			hud;
+	t_sound			s;
+	t_cam			c;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);

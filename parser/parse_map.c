@@ -52,7 +52,7 @@ static void	set_height(t_data *data, int fd)
 		{
 			if (line)
 				free(line);
-			break;
+			break ;
 		}
 		if (set_width(line, data))
 			clean(data, "Invalid map symbol\n", 1, fd);

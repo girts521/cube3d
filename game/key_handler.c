@@ -19,7 +19,6 @@ static void	dodge(t_data *data)
 {
 	if (!data->dodge && !data->dodge_timer && data->stamina >= 0.15)
 	{
-		//if (!ma_sound_is_playing(&data->sound_dodge))
 		ma_sound_start(&data->s.dodge);
 		data->stamina -= 0.15;
 		data->dodge = 1;
@@ -32,12 +31,12 @@ static void	dodge(t_data *data)
 		}
 	}
 }
+//if (!ma_sound_is_playing(&data->sound_dodge))
 
 static void	jump(t_data *data)
 {
 	if (!data->jump && data->stamina >= 0.15)
 	{
-		//if (!ma_sound_is_playing(&data->sound_jump))
 		ma_sound_start(&data->s.jump);
 		data->stamina -= 0.15;
 		data->jump = 1;

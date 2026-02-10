@@ -33,7 +33,7 @@ static void	clean_mlx(t_data *data)
 	i = -1;
 	while (++i < N_TEXTURES && data->img[i] != NULL)
 	{
-		if (data->anim_img[i][0] == NULL) // skip anim texture
+		if (data->anim_img[i][0] == NULL)
 		{
 			mlx_delete_texture(data->img[i]);
 			data->img[i] = NULL;
@@ -49,6 +49,7 @@ static void	clean_mlx(t_data *data)
 	}
 	data->mlx = NULL;
 }
+//if (data->anim_img[i][0] == NULL) // skip anim texture
 
 static void	cleanup_sounds(t_data *data, t_sound *s)
 {
