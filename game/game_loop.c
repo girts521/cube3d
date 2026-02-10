@@ -131,6 +131,7 @@ void	game_loop(void *param)
 	head_bob(data);
 	animate(data);
 	raycasting(data);
+  draw_minimap(data);
 	hud(data);
 	//fps();
 }

@@ -33,6 +33,21 @@
 
 # define CAM_POS_SPEED 0.015
 
+//Minimap values
+#define MMAP_RADIUS 90          // Slightly larger for better visibility
+#define MMAP_CENTER_X 120
+#define MMAP_CENTER_Y 120
+#define MMAP_SCALE 15
+
+// Colors
+#define MMAP_COLOR_WALL   0x505050FF  // Dark Grey
+#define MMAP_COLOR_FLOOR  0xE0E0E0FF  // Light Grey
+#define MMAP_COLOR_VOID   0x00000000  // Transparent
+#define MMAP_COLOR_PLAYER 0x2ECC71FF  // Bright Green Dot
+#define MMAP_COLOR_FOV    0x3498DBFF  // Light Blue (Alpha handled dynamically)
+
+
+
 typedef enum texture
 {
 	NO,
@@ -113,5 +128,9 @@ void	parse_input(t_data *data, char *argv[]);
 int		clean(t_data *data, char *err_mess, int status, int fd);
 void	fill_background(t_data *data);
 void	raycasting(t_data *data);
+void  draw_minimap(t_data *data);
+void        put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color);
+uint32_t    get_pixel(mlx_image_t *image, uint32_t x, uint32_t y);
+uint32_t    blend_colors(uint32_t fg, uint32_t bg, double alpha);
 
 #endif

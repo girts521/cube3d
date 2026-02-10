@@ -1,7 +1,9 @@
 CC = cc
 #CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
 CFLAGS = -Isrc -O3 -g
-MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
+GLFW_DIR = $(MLX_DIR)/build/_deps/glfw-build/src
+MLX_FLAGS   = -L$(MLX_DIR)/build -lmlx42 -L$(GLFW_DIR) -lglfw3 -ldl -lX11 -lXext -lGL -pthread -lm
+# MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 MLX_DIR = .MLX42
 AUDIO_DIR = .miniaudio
@@ -26,7 +28,8 @@ SRC = main.c \
 		raycasting/render_vertical_line.c \
 		raycasting/floor_ceiling.c \
 		raycasting/utils.c \
-		$(AUDIO_DIR)/miniaudio.c
+		$(AUDIO_DIR)/miniaudio.c \
+		minimap/minimap.c
 
 OBJ = $(SRC:.c=.o)
 
