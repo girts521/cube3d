@@ -1,12 +1,12 @@
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror -Isrc -O3 -g
-CFLAGS = -Isrc -O3 -g
+CFLAGS = -Wall -Wextra -Werror -Isrc -O3
+CFLAGS_M = -Isrc -O3
 MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 MLX_DIR = .MLX42
 AUDIO_DIR = .miniaudio
 
-SRC = main.c \
+SRC_M = main.c \
 		clean.c \
 		init/init.c \
 		init/init_extra.c \
@@ -28,12 +28,32 @@ SRC = main.c \
 		raycasting/utils.c \
 		$(AUDIO_DIR)/miniaudio.c
 
+SRC = no_sound_files/main.c \
+		no_sound_files/clean.c \
+		init/init.c \
+		no_sound_files/init_extra.c \
+		no_sound_files/game_loop.c \
+		game/movement.c \
+		game/rotation.c \
+		no_sound_files/key_handler.c \
+		game/hud.c \
+		parser/parse_input.c \
+		parser/parse_map.c \
+		parser/parse_utils.c \
+		parser/fill_map.c	\
+		parser/add_rgb.c	\
+		raycasting/raycasting.c \
+		raycasting/fill_background.c \
+		raycasting/render_vertical_line.c \
+		raycasting/floor_ceiling.c \
+		raycasting/utils.c \
+
 OBJ = $(SRC:.c=.o)
+OBJ_PROPER = $(SRC_M:.c=.p.o)
 
 NAME = cub3d
 
 LIBFT_PATH = libft
-
 LIBFT = $(LIBFT_PATH)/libft.a
 
 MLX = .MLX42/build/libmlx42.a
@@ -41,13 +61,22 @@ MLX = .MLX42/build/libmlx42.a
 %.o: %.c cub3d.h
 	@$(CC) $(CFLAGS) -c $< -o $@
 
+%.p.o: %.c cub3d.h
+	@$(CC) $(CFLAGS_M) -c $< -o $@
+
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(AUDIO_DIR) $(OBJ)
+$(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@cp $(LIBFT) libft.a
 	@cp $(MLX) libmlx42.a
 	@$(CC) $(CFLAGS) $(OBJ) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
-	@echo "/* Build $(NAME) */"
+	@echo "/* Build $(NAME) (Standard) */"
+
+proper: $(LIBFT) $(MLX) $(AUDIO_DIR) $(OBJ_PROPER)
+	@cp $(LIBFT) libft.a
+	@cp $(MLX) libmlx42.a
+	@$(CC) $(CFLAGS_M) $(OBJ_PROPER) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
+	@echo "/* Build $(NAME) (Proper) */"
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH) all --no-print-directory
@@ -66,7 +95,7 @@ $(MLX): | $(MLX_DIR)
 
 clean:
 	@rm -rf $(MLX_DIR)/build
-	@rm -f $(OBJ) libft.a libmlx42.a
+	@rm -f $(OBJ) $(OBJ_PROPER) libft.a libmlx42.a
 	@echo "/* Removed o-files $(NAME) */"
 	@make -C $(LIBFT_PATH) clean --no-print-directory
 
@@ -85,7 +114,7 @@ val: $(NAME)
 	@echo ""
 	@valgrind --leak-check=full --show-leak-kinds=definite --suppressions=mlx42.supp --track-origins=yes ./$(NAME) .test/working.cub
 
-.PHONY: all re fclean clean test val
+.PHONY: all re fclean clean test val proper
 
 # download:
 # 	git clone https://github.com/mackron/miniaudio .miniaudio

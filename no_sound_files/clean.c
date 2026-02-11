@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	clean_grid(t_map *map)
 {
@@ -52,15 +52,6 @@ static void	clean_mlx(t_data *data)
 }
 //if (data->anim_img[i][0] == NULL) // skip anim texture
 
-static void	cleanup_sounds(t_sound *s)
-{
-	ma_sound_uninit(&s->music);
-	ma_sound_uninit(&s->walk);
-	ma_sound_uninit(&s->dodge);
-	ma_sound_uninit(&s->jump);
-	ma_engine_uninit(&s->audio_engine);
-}
-
 int	clean(t_data *data, char *err_mess, int status, int fd)
 {
 	if (data)
@@ -72,6 +63,5 @@ int	clean(t_data *data, char *err_mess, int status, int fd)
 		printf("\nError\n%s", err_mess);
 	if (fd != -1)
 		close(fd);
-	cleanup_sounds(&data->s);
 	exit(status);
 }

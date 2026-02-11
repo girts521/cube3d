@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <sys/time.h>
-# include ".miniaudio/miniaudio.h"
+//# include ".miniaudio/miniaudio.h"
 
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 740
@@ -60,14 +60,14 @@ typedef struct s_map
 	int		width;
 }	t_map;
 
-typedef struct s_sound
-{
-	ma_engine	audio_engine;
-	ma_sound	music;
-	ma_sound	walk;
-	ma_sound	dodge;
-	ma_sound	jump;
-}	t_sound;
+// typedef struct s_sound
+// {
+// 	ma_engine	audio_engine;
+// 	ma_sound	music;
+// 	ma_sound	walk;
+// 	ma_sound	dodge;
+// 	ma_sound	jump;
+// }	t_sound;
 
 typedef struct s_cam
 {
@@ -105,8 +105,8 @@ typedef struct s_data
 	int				current_anim_frame;
 	t_map			map;
 	t_hud			hud;
-	t_sound			s;
 	t_cam			c;
+	//t_sound			s;
 }	t_data;
 
 void	parse_input(t_data *data, char *argv[]);
