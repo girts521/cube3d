@@ -77,7 +77,8 @@ int	clean(t_data *data, char *err_mess, int status, int fd)
 {
 	if (data)
 	{
-		clean_grid(&data->map);
+		if (data->map.grid)
+			clean_grid(&data->map);
 		clean_mlx(data);
 	}
 	if (err_mess)
