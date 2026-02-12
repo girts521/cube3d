@@ -105,5 +105,7 @@ void	parse_input(t_data *data, char *argv[])
 		clean(data, "map not found\n", 1, fd);
 	close(fd);
 	fill_map(data, argv, fd_len);
+	if (data->player[0] == -1)
+		clean(data, "no player set\n", 1, -1);
 	validate_map(data);
 }

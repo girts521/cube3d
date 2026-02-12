@@ -108,5 +108,6 @@ void	fill_map(t_data *data, char *argv[], int fd_len)
 	}
 	free(buf);
 	init_map(data, fd);
+	close(fd);
 	set_player(data);
 }
