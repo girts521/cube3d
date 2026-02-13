@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hud.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afruhauf <afruhauf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gikarcev <gikarcev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 17:08:57 by afruhauf          #+#    #+#             */
-/*   Updated: 2026/02/11 17:08:58 by afruhauf         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:24:51 by gikarcev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	hud(t_data *data)
 
 	data->hud.draw_width = data->hud.bar_total_w * data->stamina;
 	y = 0;
+	draw_minimap(data);
 	while (y < data->hud.bar_h)
 	{
 		x = 0;

@@ -48,6 +48,7 @@ SRC = no_sound_files/main.c \
 		raycasting/render_vertical_line.c \
 		raycasting/floor_ceiling.c \
 		raycasting/utils.c \
+		minimap/minimap.c
 
 OBJ = $(SRC:.c=.o)
 OBJ_PROPER = $(SRC_M:.c=.p.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afruhauf <afruhauf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gikarcev <gikarcev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 17:10:43 by afruhauf          #+#    #+#             */
-/*   Updated: 2026/02/11 17:10:44 by afruhauf         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:43:58 by gikarcev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,19 @@
 // 0.0 = off
 
 # define CAM_POS_SPEED 0.015
+
+// Minimap values
+# define MMAP_RADIUS 90
+# define MMAP_CENTER_X 120
+# define MMAP_CENTER_Y 120
+# define MMAP_SCALE 15
+
+// Colors
+# define MMAP_COLOR_WALL 0x505050FF
+# define MMAP_COLOR_FLOOR 0xE0E0E0FF
+# define MMAP_COLOR_VOID 0x00000000
+# define MMAP_COLOR_PLAYER 0x2ECC71FF
+# define MMAP_COLOR_FOV 0x3498DBFF
 
 typedef enum texture
 {
@@ -125,5 +138,6 @@ void	parse_input(t_data *data, char *argv[]);
 int		clean(t_data *data, char *err_mess, int status, int fd);
 void	fill_background(t_data *data);
 void	raycasting(t_data *data);
+void	draw_minimap(t_data *data);
 
 #endif

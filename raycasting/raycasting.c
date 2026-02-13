@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afruhauf <afruhauf@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gikarcev <gikarcev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 17:10:21 by afruhauf          #+#    #+#             */
-/*   Updated: 2026/02/11 17:10:22 by afruhauf         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:34:53 by gikarcev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	find_wall(t_raycasting *ray, t_data *data)
 			hit = 1;
 	}
 }
-//printf("mapX: %d\n mapY: %d\n", ray->mapX, ray->mapY);
 
 void	calculate_ray(t_raycasting *ray, t_data *data)
 {
