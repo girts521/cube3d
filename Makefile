@@ -5,6 +5,7 @@ MLX_FLAGS = -Iinclude -ldl -lglfw -pthread -lm
 
 MLX_DIR = .MLX42
 AUDIO_DIR = .miniaudio
+AUDIO_FILE = $(AUDIO_DIR)/miniaudio.c
 
 SRC_M = main.c \
 		clean.c \
@@ -26,7 +27,7 @@ SRC_M = main.c \
 		raycasting/render_vertical_line.c \
 		raycasting/floor_ceiling.c \
 		raycasting/utils.c \
-		$(AUDIO_DIR)/miniaudio.c
+		$(AUDIO_FILE)
 
 SRC = no_sound_files/main.c \
 		no_sound_files/clean.c \
@@ -72,7 +73,7 @@ $(NAME): $(LIBFT) $(MLX) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
 	@echo "/* Build $(NAME) (Standard) */"
 
-proper: $(LIBFT) $(MLX) $(AUDIO_DIR) $(OBJ_PROPER)
+proper: $(AUDIO_FILE) $(LIBFT) $(MLX) $(OBJ_PROPER) 
 	@cp $(LIBFT) libft.a
 	@cp $(MLX) libmlx42.a
 	@$(CC) $(CFLAGS_M) $(OBJ_PROPER) libft.a libmlx42.a $(MLX_FLAGS) -o $(NAME)
@@ -85,9 +86,15 @@ $(MLX_DIR):
 	@echo "Downloading MLX42..."
 	@git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR)
 
-$(AUDIO_DIR):
-	@echo "Downloading miniaudio..."
-	@git clone https://github.com/mackron/miniaudio $(AUDIO_DIR)
+# $(AUDIO_DIR):
+# 	@echo "Downloading miniaudio..."
+# 	@git clone https://github.com/mackron/miniaudio $(AUDIO_DIR)
+
+$(AUDIO_FILE):
+	@if [ ! -d "$(AUDIO_DIR)" ]; then \
+		echo "Downloading miniaudio..."; \
+		git clone https://github.com/mackron/miniaudio $(AUDIO_DIR); \
+	fi
 
 $(MLX): | $(MLX_DIR)
 	@cmake $(MLX_DIR) -B  $(MLX_DIR)/build > /dev/null 2>&1

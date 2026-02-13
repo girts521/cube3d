@@ -118,8 +118,8 @@ typedef struct s_data
 	t_map			map;
 	t_hud			hud;
 	t_cam			c;
-	//t_sound			s;
 }	t_data;
+//t_sound			s;
 
 void	parse_input(t_data *data, char *argv[]);
 int		clean(t_data *data, char *err_mess, int status, int fd);
