@@ -27,7 +27,8 @@ SRC_M = main.c \
 		raycasting/render_vertical_line.c \
 		raycasting/floor_ceiling.c \
 		raycasting/utils.c \
-		$(AUDIO_FILE)
+		$(AUDIO_FILE) \
+		minimap/minimap.c
 
 SRC = no_sound_files/main.c \
 		no_sound_files/clean.c \

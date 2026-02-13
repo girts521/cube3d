@@ -118,6 +118,7 @@ typedef struct s_data
 	double			dir_y;
 	double			plane_x;
 	double			plane_y;
+	int				mouse_flag;
 	double			speed;
 	double			stamina;
 	int				crouch;

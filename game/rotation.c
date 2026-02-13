@@ -54,7 +54,8 @@ static void	handle_mouse(t_data *data)
 
 void	rotation(t_data *data)
 {
-	handle_mouse(data);
+	if (data->mouse_flag == -1)
+		handle_mouse(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		rotate_player(data, ROT_SPEED);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

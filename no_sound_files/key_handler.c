@@ -55,6 +55,12 @@ static void	jump(t_data *data)
 	}
 }
 
+static void	toggle_mouse(t_data *data)
+{
+	data->mouse_flag *= -1;
+	mlx_set_mouse_pos(data->mlx, WIN_WIDTH / 2, WIN_HEIGHT / 2);
+}
+
 void	key_handler(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -70,5 +76,7 @@ void	key_handler(mlx_key_data_t keydata, void *param)
 			dodge(data);
 		if (keydata.key == MLX_KEY_SPACE)
 			jump(data);
+		if (keydata.key == MLX_KEY_Z)
+			toggle_mouse(data);
 	}
 }

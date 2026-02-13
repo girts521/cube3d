@@ -27,6 +27,7 @@ static void	init_game_data(t_data *data)
 	data->speed = MOVE_SPEED;
 	data->stamina = 1.00;
 	data->crouch = -1;
+	data->mouse_flag = -1;
 	data->dodge = 0;
 	data->jump = 0;
 	data->move_mult = 1.0;
